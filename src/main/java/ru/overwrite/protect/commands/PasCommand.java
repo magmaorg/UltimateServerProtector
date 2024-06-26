@@ -30,7 +30,6 @@ public class PasCommand implements CommandExecutor {
         }
         Player p = (Player) sender;
         if (!api.isCaptured(p)) {
-            sender.sendMessage(pluginConfig.msg_noneed);
             return true;
         }
         if (args.length == 0) {

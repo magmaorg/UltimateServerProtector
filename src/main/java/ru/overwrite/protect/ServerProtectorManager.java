@@ -23,7 +23,6 @@ import ru.overwrite.protect.task.BukkitRunner;
 import ru.overwrite.protect.task.Runner;
 import ru.overwrite.protect.task.TaskManager;
 import ru.overwrite.protect.utils.Config;
-import ru.overwrite.protect.utils.Utils;
 import ru.overwrite.protect.utils.logging.BukkitLogger;
 
 import java.io.*;
@@ -235,14 +234,13 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public void sendAlert(Player p, String msg) {
-        msg = msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p));
+        msg = msg.replace("%player%", p.getName());
         for (Player ps : server.getOnlinePlayers()) {
             if (ps.hasPermission("serverprotector.admin")) {
                 ps.sendMessage(msg);
             }
         }
-        server.getConsoleSender()
-                .sendMessage(msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p)));
+        server.getConsoleSender().sendMessage(msg.replace("%player%", p.getName()));
     }
 
     public void logAction(String key, Player player, Date date) {
@@ -252,7 +250,6 @@ public class ServerProtectorManager extends JavaPlugin {
                                 messageFile
                                         .getString(key, "ERROR: " + key + " does not exist!")
                                         .replace("%player%", player.getName())
-                                        .replace("%ip%", Utils.getIp(player))
                                         .replace("%date%", DATE_FORMAT.format(date))));
     }
 

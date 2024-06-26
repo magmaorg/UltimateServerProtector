@@ -1,8 +1,6 @@
 package ru.overwrite.protect.utils;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,7 +47,6 @@ public class Config {
             msg_message,
             msg_incorrect,
             msg_correct,
-            msg_noneed,
             msg_cantbenull,
             msg_playeronly,
             broadcasts_failed,
@@ -150,7 +147,6 @@ public class Config {
         msg_message = getMessage(msg, "message");
         msg_incorrect = getMessage(msg, "incorrect");
         msg_correct = getMessage(msg, "correct");
-        msg_noneed = getMessage(msg, "noneed");
         msg_cantbenull = getMessage(msg, "cantbenull");
         msg_playeronly = getMessage(msg, "playeronly");
     }
@@ -171,11 +167,8 @@ public class Config {
     }
 
     public String getMessage(ConfigurationSection section, String key) {
-        Component component =
-                MiniMessage.miniMessage()
-                        .deserialize(
-                                section.getString(key, "&4&lERROR&r: " + key + " does not exist!"));
-        return LegacyComponentSerializer.legacySection().serialize(component);
+        return ChatColor.translateAlternateColorCodes(
+                '&', section.getString(key, "&4&lERROR&r: " + key + " does not exist!"));
     }
 
     public FileConfiguration getFile(String path, String fileName) {
