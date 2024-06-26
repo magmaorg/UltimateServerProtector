@@ -10,7 +10,6 @@ blocking-settings:
   block-inventory-open: false
   hide-on-entering: true
   hide-other-on-entering: true
-  allow-orientation-change: false
 
 commands:
   not-in-config:

@@ -56,8 +56,7 @@ public class Config {
             bossbar_message;
     public boolean blocking_settings_block_inventory_open,
             blocking_settings_hide_on_entering,
-            blocking_settings_hide_other_on_entering,
-            blocking_settings_allow_orientation_change;
+            blocking_settings_hide_other_on_entering;
 
     public void setupPasswords(FileConfiguration dataFile) {
         per_player_passwords = new ConcurrentHashMap<>();
@@ -88,8 +87,6 @@ public class Config {
         blocking_settings_hide_on_entering = blockingSettings.getBoolean("hide-on-entering", true);
         blocking_settings_hide_other_on_entering =
                 blockingSettings.getBoolean("hide-other-on-entering", true);
-        blocking_settings_allow_orientation_change =
-                blockingSettings.getBoolean("allow-orientation-change", false);
     }
 
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {

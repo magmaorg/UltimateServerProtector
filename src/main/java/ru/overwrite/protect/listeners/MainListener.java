@@ -2,7 +2,6 @@ package ru.overwrite.protect.listeners;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,16 +31,8 @@ public class MainListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent e) {
         if (api.login.isEmpty()) return;
-        if (pluginConfig.blocking_settings_allow_orientation_change
-                && hasChangedOrientation(e.getFrom(), e.getTo())) {
-            return;
-        }
         Player p = e.getPlayer();
         api.handleInteraction(p, e);
-    }
-
-    private boolean hasChangedOrientation(Location from, Location to) {
-        return from.getPitch() != to.getPitch() || from.getYaw() != to.getYaw();
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
