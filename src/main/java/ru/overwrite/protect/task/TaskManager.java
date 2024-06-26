@@ -135,10 +135,7 @@ public final class TaskManager {
                             BossBar bossbar =
                                     Bukkit.createBossBar(
                                             this.pluginConfig.bossbar_message.replace(
-                                                    "%time%",
-                                                    Integer.toString(
-                                                            this.pluginConfig
-                                                                    .punish_settings_time)),
+                                                    "%time%", "60"),
                                             BarColor.valueOf("RED"),
                                             BarStyle.valueOf("SEGMENTED_12"));
                             bossbar.addPlayer(p);
@@ -152,22 +149,15 @@ public final class TaskManager {
                                         .get(playerName)
                                         .setTitle(
                                                 this.pluginConfig.bossbar_message.replace(
-                                                        "%time%",
-                                                        Integer.toString(
-                                                                this.pluginConfig
-                                                                                .punish_settings_time
-                                                                        - newTime)));
-                                double percents =
-                                        (this.pluginConfig.punish_settings_time - newTime)
-                                                / (double) this.pluginConfig.punish_settings_time;
+                                                        "%time%", Integer.toString(60 - newTime)));
+                                double percents = (60 - newTime) / (double) 60;
                                 if (percents > 0) {
                                     passwordHandler.bossbars.get(playerName).setProgress(percents);
                                     passwordHandler.bossbars.get(playerName).addPlayer(p);
                                 }
                             }
                         }
-                        if (!noTimeLeft(playerName)
-                                && this.pluginConfig.punish_settings_enable_time) {
+                        if (!noTimeLeft(playerName)) {
                             plugin.checkFail(
                                     playerName, config.getStringList("commands.failed-time"));
                             passwordHandler.bossbars.get(playerName).removePlayer(p);
@@ -179,7 +169,6 @@ public final class TaskManager {
     }
 
     private boolean noTimeLeft(String playerName) {
-        return !plugin.time.containsKey(playerName)
-                || plugin.time.get(playerName) < pluginConfig.punish_settings_time;
+        return !plugin.time.containsKey(playerName) || plugin.time.get(playerName) < 60;
     }
 }

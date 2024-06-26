@@ -72,15 +72,11 @@ public class Config {
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
             main_settings_enable_admin_commands,
-            punish_settings_enable_attempts,
-            punish_settings_enable_time,
-            punish_settings_enable_rejoin,
             secure_settings_enable_notadmin_punish,
             secure_settings_enable_permission_blacklist,
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter;
-    public int punish_settings_max_attempts, punish_settings_time, punish_settings_max_rejoins;
     public long main_settings_check_interval;
 
     public void setupPasswords(FileConfiguration dataFile) {
@@ -144,28 +140,6 @@ public class Config {
                 blockingSettings.getBoolean("hide-other-on-entering", true);
         blocking_settings_allow_orientation_change =
                 blockingSettings.getBoolean("allow-orientation-change", false);
-    }
-
-    public void loadPunishSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection punishSettings = config.getConfigurationSection("punish-settings");
-        if (!configFile.contains("punish-settings")) {
-            logger.warn("Configuration section punish-settings not found!");
-            configFile.createSection("punish-settings");
-            configFile.set("punish-settings.enable-attempts", true);
-            configFile.set("punish-settings.max-attempts", 3);
-            configFile.set("punish-settings.enable-time", true);
-            configFile.set("punish-settings.time", 60);
-            configFile.set("punish-settings.enable-rejoin", true);
-            configFile.set("punish-settings.max-rejoins", 3);
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section punish-settings");
-        }
-        punish_settings_enable_attempts = punishSettings.getBoolean("enable-attempts", true);
-        punish_settings_max_attempts = punishSettings.getInt("max-attempts", 3);
-        punish_settings_enable_time = punishSettings.getBoolean("enable-time", true);
-        punish_settings_time = punishSettings.getInt("time", 60);
-        punish_settings_enable_rejoin = punishSettings.getBoolean("enable-rejoin", true);
-        punish_settings_max_rejoins = punishSettings.getInt("max-rejoins", 3);
     }
 
     public void loadSecureSettings(FileConfiguration config, FileConfiguration configFile) {

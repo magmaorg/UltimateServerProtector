@@ -51,8 +51,7 @@ public class PasswordHandler {
                         return;
                     }
                     failedPassword(p);
-                    if (pluginConfig.punish_settings_enable_attempts
-                            && isAttemptsMax(p.getName())) {
+                    if (isAttemptsMax(p.getName())) {
                         plugin.checkFail(
                                 p.getName(),
                                 plugin.getConfig().getStringList("commands.failed-pass"));
@@ -67,14 +66,12 @@ public class PasswordHandler {
 
     private boolean isAttemptsMax(String playerName) {
         if (!attempts.containsKey(playerName)) return false;
-        return attempts.get(playerName) >= pluginConfig.punish_settings_max_attempts;
+        return attempts.get(playerName) >= 3;
     }
 
     public void failedPassword(Player p) {
         String playerName = p.getName();
-        if (pluginConfig.punish_settings_enable_attempts) {
-            attempts.put(playerName, attempts.getOrDefault(playerName, 0) + 1);
-        }
+        attempts.put(playerName, attempts.getOrDefault(playerName, 0) + 1);
         ServerProtectorPasswordFailEvent failEvent =
                 new ServerProtectorPasswordFailEvent(p, attempts.get(playerName));
         failEvent.callEvent();

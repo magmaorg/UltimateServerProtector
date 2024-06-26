@@ -100,14 +100,11 @@ public class ConnectionListener implements Listener {
             for (PotionEffect s : p.getActivePotionEffects()) {
                 p.removePotionEffect(s.getType());
             }
-            if (pluginConfig.punish_settings_enable_rejoin) {
-                rejoins.put(playerName, rejoins.getOrDefault(playerName, 0) + 1);
-                if (isMaxRejoins(playerName)) {
-                    rejoins.remove(playerName);
-                    plugin.checkFail(
-                            p.getName(),
-                            plugin.getConfig().getStringList("commands.failed-rejoin"));
-                }
+            rejoins.put(playerName, rejoins.getOrDefault(playerName, 0) + 1);
+            if (isMaxRejoins(playerName)) {
+                rejoins.remove(playerName);
+                plugin.checkFail(
+                        p.getName(), plugin.getConfig().getStringList("commands.failed-rejoin"));
             }
         }
         plugin.time.remove(playerName);
@@ -116,6 +113,6 @@ public class ConnectionListener implements Listener {
 
     private boolean isMaxRejoins(String playerName) {
         if (!rejoins.containsKey(playerName)) return false;
-        return rejoins.get(playerName) > pluginConfig.punish_settings_max_rejoins;
+        return rejoins.get(playerName) > 3;
     }
 }
