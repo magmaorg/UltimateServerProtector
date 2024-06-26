@@ -37,10 +37,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         AbstractSubCommand subCommand = subCommands.get(args[0].toLowerCase());
         if (subCommand != null) {
             if (subCommand.isAdminCommand()) {
-                if (!pluginConfig.main_settings_enable_admin_commands) {
-                    sendHelp(sender, label);
-                    return false;
-                }
                 if (pluginConfig.secure_settings_only_console_usp
                         && !(sender instanceof ConsoleCommandSender)) {
                     sender.sendMessage(pluginConfig.uspmsg_consoleonly);
@@ -72,10 +68,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         }
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reload, label, "serverprotector.reload");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reboot, label, "serverprotector.reboot");
-        if (!pluginConfig.main_settings_enable_admin_commands) {
-            sender.sendMessage(pluginConfig.uspmsg_otherdisabled);
-            return;
-        }
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_setpass, label, "serverprotector.setpass");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_rempass, label, "serverprotector.rempass");
     }
@@ -98,10 +90,8 @@ public class UspCommand implements CommandExecutor, TabCompleter {
             completions.add("logout");
             completions.add("reload");
             completions.add("reboot");
-            if (pluginConfig.main_settings_enable_admin_commands) {
-                completions.add("setpass");
-                completions.add("rempass");
-            }
+            completions.add("setpass");
+            completions.add("rempass");
         }
         List<String> result = new ArrayList<>();
         for (String c : completions) {

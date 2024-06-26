@@ -55,9 +55,6 @@ uspmsg:
   usage-reboot: "&6/%cmd% reboot&7 - перезапустить плагин"
   usage-setpass: "&6/%cmd% setpass (ник) (пароль) &7- установить пароль игроку"
   usage-rempass: "&6/%cmd% rempass (ник) &7- удалить пароль игроку"
-  otherdisabled: |-
-    &7Прочие команды отключены.
-    &7Для их включения выставьте &6enable-admin-commands: &atrue
 
 # Системные сообщения
 system:

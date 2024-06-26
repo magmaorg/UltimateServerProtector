@@ -49,7 +49,6 @@ public class Config {
             uspmsg_usage_reboot,
             uspmsg_usage_setpass,
             uspmsg_usage_rempass,
-            uspmsg_otherdisabled,
             msg_message,
             msg_incorrect,
             msg_correct,
@@ -71,7 +70,6 @@ public class Config {
             blocking_settings_hide_on_entering,
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
-            main_settings_enable_admin_commands,
             secure_settings_enable_notadmin_punish,
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
@@ -96,14 +94,11 @@ public class Config {
             logger.warn("Configuration section main-settings not found!");
             configFile.createSection("main-settings");
             configFile.set("main-settings.prefix", "[UltimateServerProtector]");
-            configFile.set("main-settings.enable-admin-commands", false);
             configFile.set("main-settings.check-interval", 40);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section main-settings");
         }
         main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
-        main_settings_enable_admin_commands =
-                mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
     }
 
@@ -199,7 +194,6 @@ public class Config {
         uspmsg_usage_reboot = getMessage(uspmsg, "usage-reboot");
         uspmsg_usage_setpass = getMessage(uspmsg, "usage-setpass");
         uspmsg_usage_rempass = getMessage(uspmsg, "usage-rempass");
-        uspmsg_otherdisabled = getMessage(uspmsg, "otherdisabled");
     }
 
     public void loadMsgMessages(FileConfiguration message) {
