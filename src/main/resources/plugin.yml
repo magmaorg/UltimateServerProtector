@@ -1,5 +1,5 @@
-name: "${project.name}"
-version: "${project.version}"
+name: "UltimateServerProtector"
+version: "31.0"
 author: OverwriteMC
 main: ru.overwrite.protect.ServerProtector
 api-version: 1.13
