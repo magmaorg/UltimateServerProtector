@@ -33,7 +33,7 @@ public final class TaskManager {
         this.runner = plugin.getRunner();
     }
 
-    public void startMainCheck(long interval) {
+    public void startMainCheck() {
         runner.runPeriodicalAsync(
                 () -> {
                     for (Player p : Bukkit.getOnlinePlayers()) {
@@ -69,7 +69,7 @@ public final class TaskManager {
                     }
                 },
                 20L,
-                interval >= 0 ? interval : 40L);
+                40L);
     }
 
     public void startAdminCheck(FileConfiguration config) {

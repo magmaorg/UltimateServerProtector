@@ -142,7 +142,7 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public void startTasks(FileConfiguration config) {
         TaskManager taskManager = new TaskManager(this);
-        taskManager.startMainCheck(pluginConfig.main_settings_check_interval);
+        taskManager.startMainCheck();
         taskManager.startCapturesMessages(config);
         time = new ConcurrentHashMap<>();
         taskManager.startCapturesTimer(config);

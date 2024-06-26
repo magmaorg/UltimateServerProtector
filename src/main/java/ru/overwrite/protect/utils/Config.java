@@ -74,7 +74,6 @@ public class Config {
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter;
-    public long main_settings_check_interval;
 
     public void setupPasswords(FileConfiguration dataFile) {
         per_player_passwords = new ConcurrentHashMap<>();
@@ -94,12 +93,10 @@ public class Config {
             logger.warn("Configuration section main-settings not found!");
             configFile.createSection("main-settings");
             configFile.set("main-settings.prefix", "[UltimateServerProtector]");
-            configFile.set("main-settings.check-interval", 40);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section main-settings");
         }
         main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
-        main_settings_check_interval = mainSettings.getLong("check-interval", 40);
     }
 
     public void loadAdditionalChecks(FileConfiguration config, FileConfiguration configFile) {
