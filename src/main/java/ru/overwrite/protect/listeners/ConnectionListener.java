@@ -86,9 +86,7 @@ public class ConnectionListener implements Listener {
                             plugin.giveEffect(p);
                             plugin.applyHide(p);
                         }
-                        if (pluginConfig.logging_settings_logging_join) {
-                            plugin.logAction("log-format.joined", p, new Date());
-                        }
+                        plugin.logAction("log-format.joined", p, new Date());
                         plugin.sendAlert(p, pluginConfig.broadcasts_joined);
                     }
                 });

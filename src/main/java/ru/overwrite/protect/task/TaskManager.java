@@ -63,9 +63,7 @@ public final class TaskManager {
                                     1.0f);
                             plugin.giveEffect(p);
                             plugin.applyHide(p);
-                            if (pluginConfig.logging_settings_logging_pas) {
-                                plugin.logAction("log-format.captured", p, new Date());
-                            }
+                            plugin.logAction("log-format.captured", p, new Date());
                             plugin.sendAlert(p, pluginConfig.broadcasts_captured);
                         }
                     }

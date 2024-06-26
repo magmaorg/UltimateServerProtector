@@ -84,9 +84,7 @@ public class PasswordHandler {
         p.sendMessage(pluginConfig.msg_incorrect);
         Utils.sendTitleMessage(pluginConfig.titles_incorrect, p);
         p.playSound(p.getLocation(), Sound.valueOf("ENTITY_VILLAGER_NO"), 1.0f, 1.0f);
-        if (pluginConfig.logging_settings_logging_pas) {
-            plugin.logAction("log-format.failed", p, new Date());
-        }
+        plugin.logAction("log-format.failed", p, new Date());
         plugin.sendAlert(p, pluginConfig.broadcasts_failed);
     }
 
@@ -118,9 +116,7 @@ public class PasswordHandler {
                             },
                             pluginConfig.session_settings_session_time * 20L);
         }
-        if (pluginConfig.logging_settings_logging_pas) {
-            plugin.logAction("log-format.passed", p, new Date());
-        }
+        plugin.logAction("log-format.passed", p, new Date());
         if (bossbars.get(playerName) != null) {
             bossbars.get(playerName).removeAll();
         }

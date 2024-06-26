@@ -116,7 +116,6 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.loadPunishSettings(config, configFile);
         pluginConfig.loadSessionSettings(config, configFile);
         pluginConfig.loadBossbarSettings(config, configFile);
-        pluginConfig.loadLoggingSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
         pluginConfig.loadUspMessages(messageFile);
         pluginConfig.loadTitleMessages(messageFile);
@@ -190,15 +189,13 @@ public class ServerProtectorManager extends JavaPlugin {
                     for (String c : command) {
                         server.dispatchCommand(
                                 server.getConsoleSender(), c.replace("%player%", playerName));
-                        if (pluginConfig.logging_settings_logging_command_execution) {
-                            Date date = new Date();
-                            logToFile(
-                                    messageFile
-                                            .getString("log-format.command", "ERROR")
-                                            .replace("%player%", playerName)
-                                            .replace("%cmd%", c)
-                                            .replace("%date%", DATE_FORMAT.format(date)));
-                        }
+                        Date date = new Date();
+                        logToFile(
+                                messageFile
+                                        .getString("log-format.command", "ERROR")
+                                        .replace("%player%", playerName)
+                                        .replace("%cmd%", c)
+                                        .replace("%date%", DATE_FORMAT.format(date)));
                     }
                 });
     }
@@ -236,9 +233,7 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public void logEnableDisable(String msg, Date date) {
-        if (getConfig().getBoolean("logging-settings.logging-enable-disable")) {
-            logToFile(msg.replace("%date%", DATE_FORMAT.format(date)));
-        }
+        logToFile(msg.replace("%date%", DATE_FORMAT.format(date)));
     }
 
     public CaptureReason checkPermissions(Player p) {

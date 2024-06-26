@@ -99,11 +99,7 @@ public class Config {
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter,
             session_settings_session,
-            session_settings_session_time_enabled,
-            logging_settings_logging_pas,
-            logging_settings_logging_join,
-            logging_settings_logging_enable_disable,
-            logging_settings_logging_command_execution;
+            session_settings_session_time_enabled;
     public int punish_settings_max_attempts,
             punish_settings_time,
             punish_settings_max_rejoins,
@@ -246,26 +242,6 @@ public class Config {
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {
         ConfigurationSection bossbar = plugin.messageFile.getConfigurationSection("bossbar");
         bossbar_message = getMessage(bossbar, "message");
-    }
-
-    public void loadLoggingSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection loggingSettings = config.getConfigurationSection("logging-settings");
-        if (!configFile.contains("logging-settings")) {
-            logger.warn("Configuration section logging-settings not found!");
-            configFile.createSection("logging-settings");
-            configFile.set("logging-settings.logging-pas", true);
-            configFile.set("logging-settings.logging-join", true);
-            configFile.set("logging-settings.logging-enable-disable", true);
-            configFile.set("logging-settings.logging-command-execution", true);
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section logging-settings");
-        }
-        logging_settings_logging_pas = loggingSettings.getBoolean("logging-pas", true);
-        logging_settings_logging_join = loggingSettings.getBoolean("logging-join", true);
-        logging_settings_logging_enable_disable =
-                loggingSettings.getBoolean("logging-enable-disable", true);
-        logging_settings_logging_command_execution =
-                loggingSettings.getBoolean("logging-command-execution", true);
     }
 
     public void loadPerms(FileConfiguration config) {
