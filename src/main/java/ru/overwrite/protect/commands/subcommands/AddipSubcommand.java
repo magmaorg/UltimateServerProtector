@@ -1,12 +1,12 @@
 package ru.overwrite.protect.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
+
 import ru.overwrite.protect.ServerProtectorManager;
 
 import java.util.List;
 
 public class AddipSubcommand extends AbstractSubCommand {
-
     public AddipSubcommand(ServerProtectorManager plugin) {
         super(plugin, "addip", "serverprotector.addip", true);
     }
@@ -21,7 +21,11 @@ public class AddipSubcommand extends AbstractSubCommand {
             ipwl.add(args[2]);
             plugin.getConfig().set("ip-whitelist." + args[1], ipwl);
             plugin.saveConfig();
-            sender.sendMessage(pluginConfig.uspmsg_ipadded.replace("%nick%", args[1]).replace("%ip%", args[2]));
+            sender.sendMessage(
+                    pluginConfig
+                            .uspmsg_ipadded
+                            .replace("%nick%", args[1])
+                            .replace("%ip%", args[2]));
             return true;
         }
         sendCmdUsage(sender, pluginConfig.uspmsg_addipusage, label);

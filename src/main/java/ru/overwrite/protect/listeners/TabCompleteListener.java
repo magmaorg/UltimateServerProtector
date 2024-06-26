@@ -1,14 +1,15 @@
 package ru.overwrite.protect.listeners;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
 import ru.overwrite.protect.ServerProtectorManager;
 import ru.overwrite.protect.api.ServerProtectorAPI;
 
 public class TabCompleteListener implements Listener {
-
     private final ServerProtectorAPI api;
 
     public TabCompleteListener(ServerProtectorManager plugin) {
@@ -17,10 +18,8 @@ public class TabCompleteListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onTabComplete(AsyncTabCompleteEvent e) {
-        if (api.login.isEmpty())
-            return;
-        if (!(e.getSender() instanceof Player))
-            return;
+        if (api.login.isEmpty()) return;
+        if (!(e.getSender() instanceof Player)) return;
         Player p = (Player) e.getSender();
         api.handleInteraction(p, e);
     }

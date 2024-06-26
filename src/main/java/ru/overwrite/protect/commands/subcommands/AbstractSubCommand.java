@@ -1,13 +1,13 @@
 package ru.overwrite.protect.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
+
 import ru.overwrite.protect.PasswordHandler;
 import ru.overwrite.protect.ServerProtectorManager;
 import ru.overwrite.protect.api.ServerProtectorAPI;
 import ru.overwrite.protect.utils.Config;
 
 public abstract class AbstractSubCommand implements SubCommand {
-
     protected final String name;
     protected final String permission;
     protected final boolean adminCommand;
@@ -17,7 +17,8 @@ public abstract class AbstractSubCommand implements SubCommand {
     protected final Config pluginConfig;
     protected final PasswordHandler passwordHandler;
 
-    public AbstractSubCommand(ServerProtectorManager plugin, String name, String permission, boolean adminCommand) {
+    public AbstractSubCommand(
+            ServerProtectorManager plugin, String name, String permission, boolean adminCommand) {
         this.plugin = plugin;
         this.api = plugin.getPluginAPI();
         this.pluginConfig = plugin.getPluginConfig();
@@ -42,5 +43,4 @@ public abstract class AbstractSubCommand implements SubCommand {
     protected void sendCmdUsage(CommandSender sender, String msg, String label) {
         sender.sendMessage(msg.replace("%cmd%", label));
     }
-
 }

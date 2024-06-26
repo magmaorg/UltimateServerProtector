@@ -1,12 +1,12 @@
 package ru.overwrite.protect.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
+
 import ru.overwrite.protect.ServerProtectorManager;
 
 import java.util.List;
 
 public class RemipSubcommand extends AbstractSubCommand {
-
     public RemipSubcommand(ServerProtectorManager plugin) {
         super(plugin, "remip", "serverprotector.remip", true);
     }
@@ -21,7 +21,11 @@ public class RemipSubcommand extends AbstractSubCommand {
             ipwl.remove(args[2]);
             plugin.getConfig().set("ip-whitelist." + args[1], ipwl);
             plugin.saveConfig();
-            sender.sendMessage(pluginConfig.uspmsg_ipremoved.replace("%nick%", args[1]).replace("%ip%", args[2]));
+            sender.sendMessage(
+                    pluginConfig
+                            .uspmsg_ipremoved
+                            .replace("%nick%", args[1])
+                            .replace("%ip%", args[2]));
             return true;
         }
         sendCmdUsage(sender, pluginConfig.uspmsg_remipusage, label);

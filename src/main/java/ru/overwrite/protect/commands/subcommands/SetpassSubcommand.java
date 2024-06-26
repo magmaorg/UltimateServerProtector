@@ -4,11 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+
 import ru.overwrite.protect.ServerProtectorManager;
 import ru.overwrite.protect.utils.Utils;
 
 public class SetpassSubcommand extends AbstractSubCommand {
-
     public SetpassSubcommand(ServerProtectorManager plugin) {
         super(plugin, "setpass", "serverprotector.setpass", true);
     }
@@ -42,7 +42,11 @@ public class SetpassSubcommand extends AbstractSubCommand {
         if (!pluginConfig.encryption_settings_enable_encryption) {
             dataFile.set("data." + nick + ".pass", pas);
         } else if (pluginConfig.encryption_settings_auto_encrypt_passwords) {
-            String encryptedPas = Utils.encryptPassword(pas, Utils.generateSalt(pluginConfig.encryption_settings_salt_length), pluginConfig.encryption_settings_encrypt_methods);
+            String encryptedPas =
+                    Utils.encryptPassword(
+                            pas,
+                            Utils.generateSalt(pluginConfig.encryption_settings_salt_length),
+                            pluginConfig.encryption_settings_encrypt_methods);
             dataFile.set("data." + nick + ".encrypted-pass", encryptedPas);
         } else {
             dataFile.set("data." + nick + ".encrypted-pass", pas);

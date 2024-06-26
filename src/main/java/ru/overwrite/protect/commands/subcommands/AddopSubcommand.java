@@ -3,12 +3,12 @@ package ru.overwrite.protect.commands.subcommands;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+
 import ru.overwrite.protect.ServerProtectorManager;
 
 import java.util.List;
 
 public class AddopSubcommand extends AbstractSubCommand {
-
     public AddopSubcommand(ServerProtectorManager plugin) {
         super(plugin, "addop", "serverprotector.addop", true);
     }

@@ -1,7 +1,6 @@
 package ru.overwrite.protect.api;
 
 public class CaptureReason {
-
     private final String permission;
 
     public CaptureReason(String permission) {
