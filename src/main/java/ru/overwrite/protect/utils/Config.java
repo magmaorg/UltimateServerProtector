@@ -67,8 +67,7 @@ public class Config {
             blocking_settings_hide_on_entering,
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
-            secure_settings_enable_notadmin_punish,
-            secure_settings_call_event_on_password_enter;
+            secure_settings_enable_notadmin_punish;
 
     public void setupPasswords(FileConfiguration dataFile) {
         per_player_passwords = new ConcurrentHashMap<>();
@@ -134,14 +133,11 @@ public class Config {
             logger.warn("Configuration section secure-settings not found!");
             configFile.createSection("secure-settings");
             configFile.set("secure-settings.enable-notadmin-punish", false);
-            configFile.set("secure-settings.call-event-on-password-enter", false);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section secure-settings");
         }
         secure_settings_enable_notadmin_punish =
                 secureSettings.getBoolean("enable-notadmin-punish", false);
-        secure_settings_call_event_on_password_enter =
-                secureSettings.getBoolean("call-event-on-password-enter", false);
     }
 
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {

@@ -35,9 +35,6 @@ public class PasswordHandler {
                 () -> {
                     ServerProtectorPasswordEnterEvent enterEvent =
                             new ServerProtectorPasswordEnterEvent(p, input);
-                    if (pluginConfig.secure_settings_call_event_on_password_enter) {
-                        enterEvent.callEvent();
-                    }
                     if (enterEvent.isCancelled()) {
                         return;
                     }
