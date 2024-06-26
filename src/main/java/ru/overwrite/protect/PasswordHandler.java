@@ -1,6 +1,7 @@
 package ru.overwrite.protect;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -82,9 +83,7 @@ public class PasswordHandler {
         }
         p.sendMessage(pluginConfig.msg_incorrect);
         Utils.sendTitleMessage(pluginConfig.titles_incorrect, p);
-        if (pluginConfig.sound_settings_enable_sounds) {
-            Utils.sendSound(pluginConfig.sound_settings_on_pas_fail, p);
-        }
+        p.playSound(p.getLocation(), Sound.valueOf("ENTITY_VILLAGER_NO"), 1.0f, 1.0f);
         if (pluginConfig.logging_settings_logging_pas) {
             plugin.logAction("log-format.failed", p, new Date());
         }
@@ -103,9 +102,7 @@ public class PasswordHandler {
         Utils.sendTitleMessage(pluginConfig.titles_correct, p);
         String playerName = p.getName();
         plugin.time.remove(playerName);
-        if (pluginConfig.sound_settings_enable_sounds) {
-            Utils.sendSound(pluginConfig.sound_settings_on_pas_correct, p);
-        }
+        p.playSound(p.getLocation(), Sound.valueOf("ENTITY_PLAYER_LEVELUP"), 1.0f, 1.0f);
         if (pluginConfig.effect_settings_enable_effects) {
             for (PotionEffect s : p.getActivePotionEffects()) {
                 p.removePotionEffect(s.getType());

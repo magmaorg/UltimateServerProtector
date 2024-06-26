@@ -1,6 +1,7 @@
 package ru.overwrite.protect.task;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -55,9 +56,11 @@ public final class TaskManager {
                                 continue;
                             }
                             api.capturePlayer(p);
-                            if (pluginConfig.sound_settings_enable_sounds) {
-                                Utils.sendSound(pluginConfig.sound_settings_on_capture, p);
-                            }
+                            p.playSound(
+                                    p.getLocation(),
+                                    Sound.valueOf("ENTITY_ITEM_BREAK"),
+                                    1.0f,
+                                    1.0f);
                             if (pluginConfig.effect_settings_enable_effects) {
                                 plugin.giveEffect(p);
                             }

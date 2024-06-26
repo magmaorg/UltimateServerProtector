@@ -38,12 +38,7 @@ public class Config {
             excluded_op_whitelist,
             excluded_ip_whitelist,
             excluded_blacklisted_perms;
-    public String[] titles_message,
-            titles_incorrect,
-            titles_correct,
-            sound_settings_on_capture,
-            sound_settings_on_pas_fail,
-            sound_settings_on_pas_correct;
+    public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_consoleonly,
             uspmsg_reloaded,
             uspmsg_rebooted,
@@ -107,7 +102,6 @@ public class Config {
             secure_settings_call_event_on_password_enter,
             session_settings_session,
             session_settings_session_time_enabled,
-            sound_settings_enable_sounds,
             effect_settings_enable_effects,
             logging_settings_logging_pas,
             logging_settings_logging_join,
@@ -255,31 +249,6 @@ public class Config {
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {
         ConfigurationSection bossbar = plugin.messageFile.getConfigurationSection("bossbar");
         bossbar_message = getMessage(bossbar, "message");
-    }
-
-    public void loadSoundSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection soundSettings = config.getConfigurationSection("sound-settings");
-        if (!configFile.contains("sound-settings")) {
-            logger.warn("Configuration section sound-settings not found!");
-            configFile.createSection("sound-settings");
-            configFile.set("sound-settings.enable-sounds", true);
-            configFile.set("sound-settings.bar-color", "RED");
-            configFile.set("sound-settings.bar-style", "SEGMENTED_12");
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section sound-settings");
-        }
-        sound_settings_enable_sounds = soundSettings.getBoolean("enable-sounds");
-        if (!sound_settings_enable_sounds) {
-            return;
-        }
-        sound_settings_on_capture =
-                soundSettings.getString("on-capture", "ENTITY_ITEM_BREAK;1.0;1.0").split(";");
-        sound_settings_on_pas_fail =
-                soundSettings.getString("on-pas-fail", "ENTITY_VILLAGER_NO;1.0;1.0").split(";");
-        sound_settings_on_pas_correct =
-                soundSettings
-                        .getString("on-pas-correct", "ENTITY_PLAYER_LEVELUP;1.0;1.0")
-                        .split(";");
     }
 
     public void loadEffects(FileConfiguration config, FileConfiguration configFile) {

@@ -88,17 +88,6 @@ secure-settings:
   # Вызывать ли ServerProtectorPasswordEnterEvent при вводе пароля игроком? (Отключено по умолчанию в целях безопасности)
   call-event-on-password-enter: false
 
-# Настройки звуков, которые будут проигрываться при вводе команд/действиях
-sound-settings:
-  # Включить ли звуки при командах
-  enable-sounds: true
-  # Звук при поимке админа с правами (формат - ЗВУК;ГРОМКОСТЬ;ТОНАЛЬНОСТЬ)
-  on-capture: ENTITY_ITEM_BREAK;1.0;1.0
-  # Звук при неверном пароле
-  on-pas-fail: ENTITY_VILLAGER_NO;1.0;1.0
-  # Звук при верном пароле
-  on-pas-correct: ENTITY_PLAYER_LEVELUP;1.0;1.0
-
 # Настройка эффектов, которые даются до ввода пароля
 effect-settings:
   # Включить ли эффект, который будет выдаваться админу, до ввода пароля
