@@ -36,10 +36,6 @@ blocking-settings:
 secure-settings:
   # Применять ли наказания к тем, кто не находится в конфиге, но имеет админ-права
   enable-notadmin-punish: false
-  # Выключать ли сервер, если отключается плагин
-  shutdown-on-disable: true
-  # Выключать ли сервер только если включены плугмано-подобные плагины
-  shutdown-on-disable-only-if-plugman: true
   # Вызывать ли ServerProtectorPasswordEnterEvent при вводе пароля игроком? (Отключено по умолчанию в целях безопасности)
   call-event-on-password-enter: false
 
