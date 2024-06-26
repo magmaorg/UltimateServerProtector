@@ -54,9 +54,7 @@ public class Config {
             broadcasts_joined,
             broadcasts_captured,
             bossbar_message;
-    public boolean blocking_settings_block_damage,
-            blocking_settings_damaging_entity,
-            blocking_settings_block_inventory_open,
+    public boolean blocking_settings_block_inventory_open,
             blocking_settings_hide_on_entering,
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change;
@@ -78,8 +76,6 @@ public class Config {
         if (!configFile.contains("blocking-settings")) {
             logger.warn("Configuration section blocking-settings not found!");
             configFile.createSection("secure-settings");
-            configFile.set("blocking-settings.block-damage", true);
-            configFile.set("blocking-settings.block-damaging-entity", true);
             configFile.set("blocking-settings.block-inventory-open", false);
             configFile.set("blocking-settings.hide-on-entering", true);
             configFile.set("blocking-settings.hide-other-on-entering", true);
@@ -87,9 +83,6 @@ public class Config {
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section blocking-settings");
         }
-        blocking_settings_block_damage = blockingSettings.getBoolean("block-damage", true);
-        blocking_settings_damaging_entity =
-                blockingSettings.getBoolean("block-damaging-entity", true);
         blocking_settings_block_inventory_open =
                 blockingSettings.getBoolean("block-inventory-open", false);
         blocking_settings_hide_on_entering = blockingSettings.getBoolean("hide-on-entering", true);

@@ -86,9 +86,7 @@ public class MainListener implements Listener {
         if (api.login.isEmpty()) return;
         if (!(e.getEntity() instanceof Player)) return;
         Player p = (Player) e.getEntity();
-        if (pluginConfig.blocking_settings_block_damage) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction(p, e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -96,9 +94,7 @@ public class MainListener implements Listener {
         if (api.login.isEmpty()) return;
         if (!(e.getDamager() instanceof Player)) return;
         Player p = (Player) e.getDamager();
-        if (pluginConfig.blocking_settings_damaging_entity) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction(p, e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
