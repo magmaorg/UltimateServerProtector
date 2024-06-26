@@ -5,21 +5,18 @@ import org.bukkit.event.Cancellable;
 
 import ru.overwrite.protect.Logger;
 import ru.overwrite.protect.ServerProtectorManager;
-import ru.overwrite.protect.utils.Config;
 import ru.overwrite.protect.utils.Utils;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class ServerProtectorAPI {
-    private final Config pluginConfig;
     private final Logger logger;
     public final Set<String> login = new HashSet<>();
     public final Set<String> ips = new HashSet<>();
     public final Set<String> saved = new HashSet<>();
 
     public ServerProtectorAPI(ServerProtectorManager plugin) {
-        pluginConfig = plugin.getPluginConfig();
         logger = plugin.getPluginLogger();
     }
 

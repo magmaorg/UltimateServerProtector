@@ -7,21 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import ru.overwrite.protect.PasswordHandler;
 import ru.overwrite.protect.ServerProtectorManager;
 import ru.overwrite.protect.api.ServerProtectorAPI;
-import ru.overwrite.protect.utils.Config;
 
 public class ChatListener implements Listener {
-    private final ServerProtectorManager plugin;
     private final ServerProtectorAPI api;
-    private final PasswordHandler passwordHandler;
-    private final Config pluginConfig;
 
     public ChatListener(ServerProtectorManager plugin) {
-        this.plugin = plugin;
-        pluginConfig = plugin.getPluginConfig();
-        passwordHandler = plugin.getPasswordHandler();
         api = plugin.getPluginAPI();
     }
 
