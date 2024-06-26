@@ -177,24 +177,19 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public void registerCommands(PluginManager pluginManager, FileConfiguration config) {
-        if (config.getBoolean("main-settings.use-command") && paper) {
-            try {
-                CommandMap commandMap = server.getCommandMap();
-                Constructor<PluginCommand> constructor =
-                        PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
-                constructor.setAccessible(true);
-                PluginCommand command =
-                        constructor.newInstance(
-                                config.getString("main-settings.pas-command"), this);
-                command.setExecutor(new PasCommand(this));
-                commandMap.register(getDescription().getName(), command);
-            } catch (Exception e) {
-                pluginLogger.info("Unable to register password command!");
-                e.printStackTrace();
-                pluginManager.disablePlugin(this);
-            }
-        } else {
-            pluginLogger.info("Command for password entering will not be registered.");
+        try {
+            CommandMap commandMap = server.getCommandMap();
+            Constructor<PluginCommand> constructor =
+                    PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
+            constructor.setAccessible(true);
+            PluginCommand command =
+                    constructor.newInstance(config.getString("main-settings.pas-command"), this);
+            command.setExecutor(new PasCommand(this));
+            commandMap.register(getDescription().getName(), command);
+        } catch (Exception e) {
+            pluginLogger.info("Unable to register password command!");
+            e.printStackTrace();
+            pluginManager.disablePlugin(this);
         }
         PluginCommand uspCommand = getCommand("ultimateserverprotector");
         UspCommand uspCommandClass = new UspCommand(this);

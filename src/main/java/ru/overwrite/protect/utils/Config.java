@@ -98,7 +98,6 @@ public class Config {
             blocking_settings_hide_on_entering,
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
-            main_settings_use_command,
             main_settings_enable_admin_commands,
             punish_settings_enable_attempts,
             punish_settings_enable_time,
@@ -152,7 +151,6 @@ public class Config {
             configFile.createSection("main-settings");
             configFile.set("main-settings.prefix", "[UltimateServerProtector]");
             configFile.set("main-settings.pas-command", "pas");
-            configFile.set("main-settings.use-command", true);
             configFile.set("main-settings.enable-admin-commands", false);
             configFile.set("main-settings.check-interval", 40);
             save(plugin.path, configFile, "config.yml");
@@ -160,7 +158,6 @@ public class Config {
         }
         main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
         main_settings_pas_command = mainSettings.getString("pas-command", "pas");
-        main_settings_use_command = mainSettings.getBoolean("use-command", true);
         main_settings_enable_admin_commands =
                 mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
