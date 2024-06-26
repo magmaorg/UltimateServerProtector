@@ -37,9 +37,9 @@ public class SetpassSubcommand extends AbstractSubCommand {
 
     private void addAdmin(String nick, String pas) {
         FileConfiguration dataFile;
-        dataFile = pluginConfig.getFile(plugin.path, plugin.dataFileName);
+        dataFile = pluginConfig.getFile(plugin.path, "data.yml");
         dataFile.set("data." + nick + ".pass", pas);
-        pluginConfig.save(plugin.path, dataFile, plugin.dataFileName);
+        pluginConfig.save(plugin.path, dataFile, "data.yml");
         plugin.dataFile = dataFile;
     }
 }

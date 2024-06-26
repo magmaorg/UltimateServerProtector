@@ -97,7 +97,7 @@ public class Config {
             per_player_passwords.put(nick, data.getString(nick + ".pass"));
         }
         if (shouldSave) {
-            save(plugin.path, dataFile, plugin.dataFileName);
+            save(plugin.path, dataFile, "data.yml");
         }
     }
 

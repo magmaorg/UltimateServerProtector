@@ -3,7 +3,6 @@ package ru.overwrite.protect;
 import org.bukkit.Server;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -41,8 +40,6 @@ public class ServerProtectorManager extends JavaPlugin {
     public FileConfiguration messageFile;
     public FileConfiguration dataFile;
 
-    public String dataFileName;
-
     public String path;
 
     private final Config pluginConfig = new Config(this);
@@ -77,11 +74,9 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public void loadConfigs(FileConfiguration config) {
-        ConfigurationSection fileSettings = config.getConfigurationSection("file-settings");
         path = getDataFolder().getAbsolutePath();
-        dataFileName = fileSettings.getString("data-file");
-        dataFile = pluginConfig.getFile(path, dataFileName);
-        pluginConfig.save(path, dataFile, dataFileName);
+        dataFile = pluginConfig.getFile(path, "data.yml");
+        pluginConfig.save(path, dataFile, "data.yml");
         messageFile = pluginConfig.getFile(getDataFolder().getAbsolutePath(), "message.yml");
         pluginConfig.save(getDataFolder().getAbsolutePath(), messageFile, "message.yml");
         setupPluginConfig(config);
@@ -95,11 +90,8 @@ public class ServerProtectorManager extends JavaPlugin {
                     FileConfiguration config = getConfig();
                     messageFile =
                             pluginConfig.getFile(getDataFolder().getAbsolutePath(), "message.yml");
-                    ConfigurationSection fileSettings =
-                            config.getConfigurationSection("file-settings");
                     path = getDataFolder().getAbsolutePath();
-                    dataFileName = fileSettings.getString("data-file");
-                    dataFile = pluginConfig.getFile(path, dataFileName);
+                    dataFile = pluginConfig.getFile(path, "data.yml");
                     setupPluginConfig(config);
                     pluginConfig.setupPasswords(dataFile);
                 });
@@ -172,9 +164,8 @@ public class ServerProtectorManager extends JavaPlugin {
         if (!dataFolder.exists() && !dataFolder.mkdirs()) {
             throw new RuntimeException("Unable to create data folder");
         }
-        ConfigurationSection file_settings = config.getConfigurationSection("file-settings");
         String logFilePath = dataFolder.getPath();
-        logFile = new File(logFilePath, file_settings.getString("log-file"));
+        logFile = new File(logFilePath, "log.yml");
     }
 
     public void checkFail(String playerName, List<String> command) {
