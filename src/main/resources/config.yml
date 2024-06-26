@@ -7,8 +7,6 @@
 #
 
 blocking-settings:
-  block-item-drop: true
-  block-item-pickup: true
   block-tab-complete: true
   block-damage: true
   block-damaging-entity: true

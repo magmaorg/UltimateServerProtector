@@ -62,9 +62,7 @@ public class MainListener implements Listener {
     public void onItemDrop(PlayerDropItemEvent e) {
         if (api.login.isEmpty()) return;
         Player p = e.getPlayer();
-        if (pluginConfig.blocking_settings_block_item_drop) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction(p, e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -72,9 +70,7 @@ public class MainListener implements Listener {
         if (api.login.isEmpty()) return;
         if (!(e.getEntity() instanceof Player)) return;
         Player p = (Player) e.getEntity();
-        if (pluginConfig.blocking_settings_block_item_pickup) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction(p, e);
     }
 
     @EventHandler(ignoreCancelled = true)

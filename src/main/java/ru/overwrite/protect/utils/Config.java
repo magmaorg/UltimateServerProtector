@@ -54,9 +54,7 @@ public class Config {
             broadcasts_joined,
             broadcasts_captured,
             bossbar_message;
-    public boolean blocking_settings_block_item_drop,
-            blocking_settings_block_item_pickup,
-            blocking_settings_block_tab_complete,
+    public boolean blocking_settings_block_tab_complete,
             blocking_settings_block_damage,
             blocking_settings_damaging_entity,
             blocking_settings_block_inventory_open,
@@ -81,8 +79,6 @@ public class Config {
         if (!configFile.contains("blocking-settings")) {
             logger.warn("Configuration section blocking-settings not found!");
             configFile.createSection("secure-settings");
-            configFile.set("blocking-settings.block-item-drop", true);
-            configFile.set("blocking-settings.block-item-pickup", true);
             configFile.set("blocking-settings.block-tab-complete", true);
             configFile.set("blocking-settings.block-damage", true);
             configFile.set("blocking-settings.block-damaging-entity", true);
@@ -93,9 +89,6 @@ public class Config {
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section blocking-settings");
         }
-        blocking_settings_block_item_drop = blockingSettings.getBoolean("block-item-drop", true);
-        blocking_settings_block_item_pickup =
-                blockingSettings.getBoolean("block-item-pickup", true);
         blocking_settings_block_tab_complete =
                 blockingSettings.getBoolean("block-tab-complete", true);
         blocking_settings_block_damage = blockingSettings.getBoolean("block-damage", true);
