@@ -95,7 +95,7 @@ permissions:
   - "plugman.download"
   - "serverprotector.admin"
 
-# Какие игроки будут исключены из проверок (каждой проверке - свой тип)
+# Какие игроки будут исключены из проверки
 excluded-players:
   - test99999
   - test123123
