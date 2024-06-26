@@ -1,5 +1,9 @@
 package ru.overwrite.protect.utils;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,8 +24,6 @@ public class Config {
         this.plugin = plugin;
         this.logger = plugin.getPluginLogger();
     }
-
-    public String serializer;
 
     public Set<String> perms, blacklisted_perms, geyser_names;
 
@@ -148,7 +150,6 @@ public class Config {
         if (!configFile.contains("main-settings")) {
             logger.warn("Configuration section main-settings not found!");
             configFile.createSection("main-settings");
-            configFile.set("main-settings.serializer", "LEGACY");
             configFile.set("main-settings.prefix", "[UltimateServerProtector]");
             configFile.set("main-settings.pas-command", "pas");
             configFile.set("main-settings.use-command", true);
@@ -157,7 +158,6 @@ public class Config {
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section main-settings");
         }
-        serializer = mainSettings.getString("serializer", "LEGACY").toUpperCase();
         main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
         main_settings_pas_command = mainSettings.getString("pas-command", "pas");
         main_settings_use_command = mainSettings.getBoolean("use-command", true);
@@ -475,10 +475,12 @@ public class Config {
     }
 
     public String getMessage(ConfigurationSection section, String key) {
-        return Utils.colorize(
-                section.getString(key, "&4&lERROR&r: " + key + " does not exist!")
-                        .replace("%prefix%", main_settings_prefix),
-                serializer);
+        Component component =
+                MiniMessage.miniMessage()
+                        .deserialize(
+                                section.getString(key, "&4&lERROR&r: " + key + " does not exist!")
+                                        .replace("%prefix%", main_settings_prefix));
+        return LegacyComponentSerializer.legacySection().serialize(component);
     }
 
     public FileConfiguration getFile(String path, String fileName) {
