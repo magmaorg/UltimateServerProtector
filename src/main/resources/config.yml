@@ -21,13 +21,6 @@ file-settings:
   data-file: "data.yml"
   # Имя файла с логами. (по умолчанию - log.yml)
   log-file: "log.yml"
-  # Если эта настройка включена, то вам нужно будет указать полный путь до файла
-  # Пример: root/server/plugins/UltimateServerProtector/data.yml
-  use-full-path: false
-  # Путь к файлу data.yml
-  data-file-path: "/root/server/plugins/UltimateServerProtector/"
-  # Путь к файлу log.yml
-  log-file-path: "/root/server/plugins/UltimateServerProtector/"
 
 # Настройка для пользователей floodgate + geyser (со спец.символами)
 geyser-settings:

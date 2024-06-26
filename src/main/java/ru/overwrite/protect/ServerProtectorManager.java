@@ -104,11 +104,7 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public void loadConfigs(FileConfiguration config) {
         ConfigurationSection fileSettings = config.getConfigurationSection("file-settings");
-        boolean fullPath = fileSettings.getBoolean("use-full-path", false);
-        path =
-                fullPath
-                        ? fileSettings.getString("data-file-path")
-                        : getDataFolder().getAbsolutePath();
+        path = getDataFolder().getAbsolutePath();
         dataFileName = fileSettings.getString("data-file");
         dataFile = pluginConfig.getFile(path, dataFileName);
         pluginConfig.save(path, dataFile, dataFileName);
@@ -127,11 +123,7 @@ public class ServerProtectorManager extends JavaPlugin {
                             pluginConfig.getFile(getDataFolder().getAbsolutePath(), "message.yml");
                     ConfigurationSection fileSettings =
                             config.getConfigurationSection("file-settings");
-                    boolean fullPath = fileSettings.getBoolean("use-full-path", false);
-                    path =
-                            fullPath
-                                    ? fileSettings.getString("data-file-path")
-                                    : getDataFolder().getAbsolutePath();
+                    path = getDataFolder().getAbsolutePath();
                     dataFileName = fileSettings.getString("data-file");
                     dataFile = pluginConfig.getFile(path, dataFileName);
                     setupPluginConfig(config);
@@ -221,9 +213,7 @@ public class ServerProtectorManager extends JavaPlugin {
             throw new RuntimeException("Unable to create data folder");
         }
         ConfigurationSection file_settings = config.getConfigurationSection("file-settings");
-        boolean fullPath = file_settings.getBoolean("use-full-path");
-        String logFilePath =
-                fullPath ? file_settings.getString("log-file-path") : dataFolder.getPath();
+        String logFilePath = dataFolder.getPath();
         logFile = new File(logFilePath, file_settings.getString("log-file"));
     }
 
