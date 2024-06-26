@@ -92,8 +92,7 @@ public class Config {
             bossbar_settings_bar_style,
             main_settings_prefix,
             main_settings_pas_command;
-    public boolean main_settings_papi_support,
-            encryption_settings_enable_encryption,
+    public boolean encryption_settings_enable_encryption,
             encryption_settings_auto_encrypt_passwords,
             blocking_settings_block_item_drop,
             blocking_settings_block_item_pickup,
@@ -180,7 +179,6 @@ public class Config {
             configFile.set("main-settings.use-command", true);
             configFile.set("main-settings.enable-admin-commands", false);
             configFile.set("main-settings.check-interval", 40);
-            configFile.set("main-settings.papi-support", false);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section main-settings");
         }
@@ -191,7 +189,6 @@ public class Config {
         main_settings_enable_admin_commands =
                 mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
-        main_settings_papi_support = mainSettings.getBoolean("papi-support", false);
     }
 
     public void loadEncryptionSettings(FileConfiguration config, FileConfiguration configFile) {
