@@ -21,13 +21,11 @@ import ru.overwrite.protect.listeners.ConnectionListener;
 import ru.overwrite.protect.listeners.MainListener;
 import ru.overwrite.protect.listeners.TabCompleteListener;
 import ru.overwrite.protect.task.BukkitRunner;
-import ru.overwrite.protect.task.PaperRunner;
 import ru.overwrite.protect.task.Runner;
 import ru.overwrite.protect.task.TaskManager;
 import ru.overwrite.protect.utils.Config;
 import ru.overwrite.protect.utils.Utils;
 import ru.overwrite.protect.utils.logging.BukkitLogger;
-import ru.overwrite.protect.utils.logging.PaperLogger;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -38,8 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServerProtectorManager extends JavaPlugin {
     public static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("[dd-MM-yyy] HH:mm:ss -");
-    private final Logger pluginLogger =
-            Utils.FOLIA ? new PaperLogger(this) : new BukkitLogger(this);
+    private final Logger pluginLogger = new BukkitLogger(this);
 
     public boolean paper;
 
@@ -53,7 +50,7 @@ public class ServerProtectorManager extends JavaPlugin {
     private final Config pluginConfig = new Config(this);
     private final ServerProtectorAPI api = new ServerProtectorAPI(this);
     private final PasswordHandler passwordHandler = new PasswordHandler(this);
-    private final Runner runner = Utils.FOLIA ? new PaperRunner(this) : new BukkitRunner(this);
+    private final Runner runner = new BukkitRunner(this);
 
     public Map<String, Integer> time;
 
