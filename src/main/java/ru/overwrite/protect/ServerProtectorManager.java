@@ -182,8 +182,7 @@ public class ServerProtectorManager extends JavaPlugin {
             Constructor<PluginCommand> constructor =
                     PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             constructor.setAccessible(true);
-            PluginCommand command =
-                    constructor.newInstance(config.getString("main-settings.pas-command"), this);
+            PluginCommand command = constructor.newInstance("pas", this);
             command.setExecutor(new PasCommand(this));
             commandMap.register(getDescription().getName(), command);
         } catch (Exception e) {

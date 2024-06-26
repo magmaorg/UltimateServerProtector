@@ -87,8 +87,7 @@ public class Config {
             bossbar_message,
             bossbar_settings_bar_color,
             bossbar_settings_bar_style,
-            main_settings_prefix,
-            main_settings_pas_command;
+            main_settings_prefix;
     public boolean blocking_settings_block_item_drop,
             blocking_settings_block_item_pickup,
             blocking_settings_block_tab_complete,
@@ -150,14 +149,12 @@ public class Config {
             logger.warn("Configuration section main-settings not found!");
             configFile.createSection("main-settings");
             configFile.set("main-settings.prefix", "[UltimateServerProtector]");
-            configFile.set("main-settings.pas-command", "pas");
             configFile.set("main-settings.enable-admin-commands", false);
             configFile.set("main-settings.check-interval", 40);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section main-settings");
         }
         main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
-        main_settings_pas_command = mainSettings.getString("pas-command", "pas");
         main_settings_enable_admin_commands =
                 mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
