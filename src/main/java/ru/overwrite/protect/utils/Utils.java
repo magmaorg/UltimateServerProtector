@@ -4,14 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import ru.overwrite.protect.ServerProtectorManager;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.function.Consumer;
-
 public final class Utils {
     public static final int SUB_VERSION =
             Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].split("\\.")[1]);
@@ -59,25 +51,5 @@ public final class Utils {
                         ? Float.parseFloat(soundArgs[2])
                         : 1.0f;
         p.playSound(p.getLocation(), sound, volume, pitch);
-    }
-
-    public static void checkUpdates(ServerProtectorManager plugin, Consumer<String> consumer) {
-        plugin.getRunner()
-                .runAsync(
-                        () -> {
-                            try (BufferedReader reader =
-                                    new BufferedReader(
-                                            new InputStreamReader(
-                                                    new URL(
-                                                                    "https://raw.githubusercontent.com/Overwrite987/UltimateServerProtector/master/VERSION")
-                                                            .openStream()))) {
-                                consumer.accept(reader.readLine().trim());
-                            } catch (IOException exception) {
-                                plugin.getLogger()
-                                        .warning(
-                                                "Can't check for updates: "
-                                                        + exception.getMessage());
-                            }
-                        });
     }
 }

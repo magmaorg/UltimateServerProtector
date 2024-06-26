@@ -227,43 +227,6 @@ public class ServerProtectorManager extends JavaPlugin {
         logFile = new File(logFilePath, file_settings.getString("log-file"));
     }
 
-    public void checkForUpdates(FileConfiguration config, FileConfiguration messageFile) {
-        if (!config.getBoolean("main-settings.update-checker")) {
-            return;
-        }
-        Utils.checkUpdates(
-                this,
-                version -> {
-                    pluginLogger.info(
-                            messageFile.getString(
-                                    "system.baseline-default",
-                                    "§6========================================"));
-                    if (getDescription().getVersion().equals(version)) {
-                        pluginLogger.info(
-                                messageFile.getString(
-                                        "system.update-latest",
-                                        "§aYou are using latest version of the plugin!"));
-                    } else {
-                        pluginLogger.info(
-                                messageFile.getString(
-                                        "system.update-outdated-1",
-                                        "§aYou are using outdated version of the plugin!"));
-                        pluginLogger.info(
-                                messageFile.getString(
-                                        "system.update-outdated-2",
-                                        "§aYou can download new version here:"));
-                        pluginLogger.info(
-                                messageFile.getString(
-                                        "system.update-outdated-3",
-                                        "§bgithub.com/Overwrite987/UltimateServerProtector/releases/"));
-                    }
-                    pluginLogger.info(
-                            messageFile.getString(
-                                    "system.baseline-default",
-                                    "§6========================================"));
-                });
-    }
-
     public void checkFail(String playerName, List<String> command) {
         if (command.isEmpty()) {
             return;

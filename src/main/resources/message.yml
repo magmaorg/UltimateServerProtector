@@ -74,7 +74,3 @@ system:
   baseline-default: "§6========================================"
   paper-1: "§eВы используете нестабильное ядро для вашего сервера Minecraft! Рекомендуется использовать §aPaper"
   paper-2: "§eСкачать Paper: §ahttps://papermc.io/downloads/all"
-  update-latest: "§aВы используете последнюю версию плагина!"
-  update-outdated-1: "§aВы используете устаревшую версию плагина!"
-  update-outdated-2: "§aВы можете скачать новую версию здесь:"
-  update-outdated-3: "§bgithub.com/Overwrite987/UltimateServerProtector/releases/"

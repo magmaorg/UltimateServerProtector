@@ -26,7 +26,6 @@ public final class ServerProtector extends ServerProtectorManager {
         registerCommands(pluginManager, config);
         startTasks(config);
         logEnableDisable(messageFile.getString("log-format.enabled"), new Date(startTime));
-        checkForUpdates(config, messageFile);
         long endTime = System.currentTimeMillis();
         getPluginLogger().info("Plugin started in " + (endTime - startTime) + " ms");
     }
