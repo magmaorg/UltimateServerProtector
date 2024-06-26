@@ -14,7 +14,6 @@ import ru.overwrite.protect.utils.Utils;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PasswordHandler {
@@ -46,31 +45,9 @@ public class PasswordHandler {
                         return;
                     }
                     String playerPass = pluginConfig.per_player_passwords.get(p.getName());
-                    String salt = playerPass.split(":")[0];
-                    String pass =
-                            pluginConfig.encryption_settings_enable_encryption
-                                    ? Utils.encryptPassword(
-                                            input,
-                                            salt,
-                                            pluginConfig.encryption_settings_encrypt_methods)
-                                    : input;
-                    if (pass.equals(playerPass)) {
+                    if (input.equals(playerPass)) {
                         correctPassword(p);
                         return;
-                    }
-                    if (!pluginConfig.encryption_settings_old_encrypt_methods.isEmpty()) {
-                        for (List<String> oldEncryptMethod :
-                                pluginConfig.encryption_settings_old_encrypt_methods) {
-                            String oldgenPass =
-                                    pluginConfig.encryption_settings_enable_encryption
-                                            ? Utils.encryptPassword(input, salt, oldEncryptMethod)
-                                            : input;
-                            if (oldgenPass.equals(
-                                    pluginConfig.per_player_passwords.get(p.getName()))) {
-                                correctPassword(p);
-                                return;
-                            }
-                        }
                     }
                     failedPassword(p);
                     if (pluginConfig.punish_settings_enable_attempts

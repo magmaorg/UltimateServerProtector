@@ -29,17 +29,13 @@ public class Config {
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> encryption_settings_encrypt_methods,
-            effect_settings_effects,
+    public List<String> effect_settings_effects,
             allowed_commands,
             op_whitelist,
             excluded_admin_pass,
             excluded_op_whitelist,
             excluded_ip_whitelist,
             excluded_blacklisted_perms;
-
-    public List<List<String>> encryption_settings_old_encrypt_methods;
-
     public String[] titles_message,
             titles_incorrect,
             titles_correct,
@@ -69,7 +65,6 @@ public class Config {
             uspmsg_usage_logout,
             uspmsg_usage_reload,
             uspmsg_usage_reboot,
-            uspmsg_usage_encrypt,
             uspmsg_usage_setpass,
             uspmsg_usage_rempass,
             uspmsg_usage_addop,
@@ -92,9 +87,7 @@ public class Config {
             bossbar_settings_bar_style,
             main_settings_prefix,
             main_settings_pas_command;
-    public boolean encryption_settings_enable_encryption,
-            encryption_settings_auto_encrypt_passwords,
-            blocking_settings_block_item_drop,
+    public boolean blocking_settings_block_item_drop,
             blocking_settings_block_item_pickup,
             blocking_settings_block_tab_complete,
             blocking_settings_block_damage,
@@ -127,8 +120,7 @@ public class Config {
             logging_settings_logging_join,
             logging_settings_logging_enable_disable,
             logging_settings_logging_command_execution;
-    public int encryption_settings_salt_length,
-            punish_settings_max_attempts,
+    public int punish_settings_max_attempts,
             punish_settings_time,
             punish_settings_max_rejoins,
             session_settings_session_time;
@@ -144,24 +136,7 @@ public class Config {
             if (geyser_prefix != null && !geyser_prefix.isBlank() && geyser_names.contains(nick)) {
                 playerNick = geyser_prefix + nick;
             }
-            if (!encryption_settings_enable_encryption) {
-                per_player_passwords.put(playerNick, data.getString(nick + ".pass"));
-            } else {
-                if (encryption_settings_auto_encrypt_passwords) {
-                    if (data.getString(nick + ".pass") != null) {
-                        String encryptedPas =
-                                Utils.encryptPassword(
-                                        data.getString(nick + ".pass"),
-                                        Utils.generateSalt(encryption_settings_salt_length),
-                                        encryption_settings_encrypt_methods);
-                        dataFile.set("data." + nick + ".encrypted-pass", encryptedPas);
-                        dataFile.set("data." + nick + ".pass", null);
-                        shouldSave = true;
-                        plugin.dataFile = dataFile;
-                    }
-                }
-                per_player_passwords.put(playerNick, data.getString(nick + ".encrypted-pass"));
-            }
+            per_player_passwords.put(playerNick, data.getString(nick + ".pass"));
         }
         if (shouldSave) {
             save(plugin.path, dataFile, plugin.dataFileName);
@@ -189,45 +164,6 @@ public class Config {
         main_settings_enable_admin_commands =
                 mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
-    }
-
-    public void loadEncryptionSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection encryptionSettings =
-                config.getConfigurationSection("encryption-settings");
-        if (!configFile.contains("encryption-settings")) {
-            logger.warn("Configuration section encryption-settings not found!");
-            configFile.createSection("encryption-settings");
-            configFile.set("encryption-settings.encrypt-method", "");
-            configFile.set("encryption-settings.salt-length", 24);
-            configFile.set("encryption-settings.auto-encrypt-passwords", true);
-            configFile.set("encryption-settings.old-encrypt-methods", Collections.emptyList());
-            configFile.set("encryption-settings.encrypt-method", "");
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section encryption-settings");
-        }
-        encryption_settings_enable_encryption =
-                encryptionSettings.getBoolean("enable-encryption", false);
-        String encryptionMethod = encryptionSettings.getString("encrypt-method", "").trim();
-        encryption_settings_encrypt_methods =
-                encryptionMethod.contains(";")
-                        ? List.of(encryptionMethod.split(";"))
-                        : List.of(encryptionMethod);
-        encryption_settings_old_encrypt_methods = new ArrayList<>();
-        encryption_settings_salt_length = encryptionSettings.getInt("salt-length", 24);
-        encryption_settings_auto_encrypt_passwords =
-                encryptionSettings.getBoolean("auto-encrypt-passwords", true);
-        if (!encryption_settings_enable_encryption) {
-            return;
-        }
-        List<String> oldEncryptionMethods = encryptionSettings.getStringList("old-encrypt-methods");
-        for (String oldEncryptionMethod : oldEncryptionMethods) {
-            if (oldEncryptionMethod.contains(";")) {
-                encryption_settings_old_encrypt_methods.add(
-                        List.of(oldEncryptionMethod.trim().split(";")));
-            } else {
-                encryption_settings_old_encrypt_methods.add(List.of(oldEncryptionMethod.trim()));
-            }
-        }
     }
 
     public void loadGeyserSettings(FileConfiguration config, FileConfiguration configFile) {
@@ -504,7 +440,6 @@ public class Config {
         uspmsg_usage_logout = getMessage(uspmsg, "usage-logout");
         uspmsg_usage_reload = getMessage(uspmsg, "usage-reload");
         uspmsg_usage_reboot = getMessage(uspmsg, "usage-reboot");
-        uspmsg_usage_encrypt = getMessage(uspmsg, "usage-encrypt");
         uspmsg_usage_setpass = getMessage(uspmsg, "usage-setpass");
         uspmsg_usage_rempass = getMessage(uspmsg, "usage-rempass");
         uspmsg_usage_addop = getMessage(uspmsg, "usage-addop");

@@ -20,7 +20,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         registerSubCommand(new LogoutSubcommand(plugin));
         registerSubCommand(new ReloadSubcommand(plugin));
         registerSubCommand(new RebootSubcommand(plugin));
-        registerSubCommand(new EncryptSubcommand(plugin));
         registerSubCommand(new SetpassSubcommand(plugin));
         registerSubCommand(new AddopSubcommand(plugin));
         registerSubCommand(new AddipSubcommand(plugin));
@@ -77,10 +76,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         }
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reload, label, "serverprotector.reload");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reboot, label, "serverprotector.reboot");
-        if (pluginConfig.encryption_settings_enable_encryption) {
-            sendCmdMessage(
-                    sender, pluginConfig.uspmsg_usage_encrypt, label, "serverprotector.encrypt");
-        }
         if (!pluginConfig.main_settings_enable_admin_commands) {
             sender.sendMessage(pluginConfig.uspmsg_otherdisabled);
             return;
@@ -111,9 +106,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
             completions.add("logout");
             completions.add("reload");
             completions.add("reboot");
-            if (pluginConfig.encryption_settings_enable_encryption) {
-                completions.add("encrypt");
-            }
             if (pluginConfig.main_settings_enable_admin_commands) {
                 completions.add("setpass");
                 completions.add("rempass");

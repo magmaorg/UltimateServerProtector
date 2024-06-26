@@ -14,7 +14,6 @@ permissions:
     children:
       serverprotector.reload: true
       serverprotector.reboot: true
-      serverprotector.encrypt: true
       serverprotector.setpass: true
       serverprotector.addop: true
       serverprotector.addip: true

@@ -17,10 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -148,30 +144,5 @@ public final class Utils {
                                                         + exception.getMessage());
                             }
                         });
-    }
-
-    private static String encodeToBase64(String str) {
-        return Base64.getEncoder().encodeToString(str.getBytes(StandardCharsets.UTF_8));
-    }
-
-    private static String encryptToHash(String str, String algorithm) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance(algorithm);
-            byte[] hash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
-            return bytesToHexString(hash);
-        } catch (NoSuchAlgorithmException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    private static String bytesToHexString(byte[] bytes) {
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : bytes) {
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
     }
 }
