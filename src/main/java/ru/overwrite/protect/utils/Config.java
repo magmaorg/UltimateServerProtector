@@ -27,11 +27,9 @@ public class Config {
 
     public Set<String> perms, blacklisted_perms;
 
-    public Map<String, List<String>> ip_whitelist;
-
     public Map<String, String> per_player_passwords;
 
-    public List<String> excluded_admin_pass, excluded_ip_whitelist, excluded_blacklisted_perms;
+    public List<String> excluded_admin_pass, excluded_blacklisted_perms;
     public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_consoleonly,
             uspmsg_reloaded,
@@ -43,11 +41,7 @@ public class Config {
             uspmsg_notinconfig,
             uspmsg_playeradded,
             uspmsg_playerremoved,
-            uspmsg_ipadded,
             uspmsg_setpassusage,
-            uspmsg_ipremoved,
-            uspmsg_remipusage,
-            uspmsg_addipusage,
             uspmsg_rempassusage,
             uspmsg_usage,
             uspmsg_usage_logout,
@@ -55,8 +49,6 @@ public class Config {
             uspmsg_usage_reboot,
             uspmsg_usage_setpass,
             uspmsg_usage_rempass,
-            uspmsg_usage_addip,
-            uspmsg_usage_remip,
             uspmsg_otherdisabled,
             msg_message,
             msg_incorrect,
@@ -85,7 +77,6 @@ public class Config {
             punish_settings_enable_rejoin,
             secure_settings_enable_notadmin_punish,
             secure_settings_enable_permission_blacklist,
-            secure_settings_enable_ip_whitelist,
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter,
@@ -207,7 +198,6 @@ public class Config {
             configFile.createSection("secure-settings");
             configFile.set("secure-settings.enable-notadmin-punish", false);
             configFile.set("secure-settings.enable-permission-blacklist", false);
-            configFile.set("secure-settings.enable-ip-whitelist", false);
             configFile.set("secure-settings.only-console-usp", false);
             configFile.set("secure-settings.enable-excluded-players", false);
             configFile.set("secure-settings.call-event-on-password-enter", false);
@@ -218,8 +208,6 @@ public class Config {
                 secureSettings.getBoolean("enable-notadmin-punish", false);
         secure_settings_enable_permission_blacklist =
                 secureSettings.getBoolean("enable-permission-blacklist", false);
-        secure_settings_enable_ip_whitelist =
-                secureSettings.getBoolean("enable-ip-whitelist", false);
         secure_settings_only_console_usp = secureSettings.getBoolean("only-console-usp", false);
         secure_settings_enable_excluded_players =
                 secureSettings.getBoolean("enable-excluded-players", false);
@@ -241,15 +229,6 @@ public class Config {
         if (secureSettings.getBoolean("enable-permission-blacklist")) {
             blacklisted_perms = new HashSet<>(config.getStringList("blacklisted-perms"));
         }
-        if (secureSettings.getBoolean("enable-ip-whitelist")) {
-            ip_whitelist = new HashMap<>();
-            for (String ipwl_player :
-                    config.getConfigurationSection("ip-whitelist").getKeys(false)) {
-                List<String> ips =
-                        new ArrayList<>(config.getStringList("ip-whitelist." + ipwl_player));
-                ip_whitelist.put(ipwl_player, ips);
-            }
-        }
     }
 
     public void setupExcluded(FileConfiguration config) {
@@ -257,7 +236,6 @@ public class Config {
             ConfigurationSection excludedPlayers =
                     config.getConfigurationSection("excluded-players");
             excluded_admin_pass = new ArrayList<>(excludedPlayers.getStringList("admin-pass"));
-            excluded_ip_whitelist = new ArrayList<>(excludedPlayers.getStringList("ip-whitelist"));
             excluded_blacklisted_perms =
                     new ArrayList<>(excludedPlayers.getStringList("blacklisted-perms"));
         }
@@ -275,20 +253,14 @@ public class Config {
         uspmsg_notinconfig = getMessage(uspmsg, "notinconfig");
         uspmsg_playeradded = getMessage(uspmsg, "playeradded");
         uspmsg_playerremoved = getMessage(uspmsg, "playerremoved");
-        uspmsg_ipadded = getMessage(uspmsg, "ipadded");
         uspmsg_setpassusage = getMessage(uspmsg, "setpassusage");
-        uspmsg_addipusage = getMessage(uspmsg, "addipusage");
         uspmsg_rempassusage = getMessage(uspmsg, "rempassusage");
-        uspmsg_ipremoved = getMessage(uspmsg, "ipremoved");
-        uspmsg_remipusage = getMessage(uspmsg, "remipusage");
         uspmsg_usage = getMessage(uspmsg, "usage");
         uspmsg_usage_logout = getMessage(uspmsg, "usage-logout");
         uspmsg_usage_reload = getMessage(uspmsg, "usage-reload");
         uspmsg_usage_reboot = getMessage(uspmsg, "usage-reboot");
         uspmsg_usage_setpass = getMessage(uspmsg, "usage-setpass");
         uspmsg_usage_rempass = getMessage(uspmsg, "usage-rempass");
-        uspmsg_usage_addip = getMessage(uspmsg, "usage-addip");
-        uspmsg_usage_remip = getMessage(uspmsg, "usage-remip");
         uspmsg_otherdisabled = getMessage(uspmsg, "otherdisabled");
     }
 

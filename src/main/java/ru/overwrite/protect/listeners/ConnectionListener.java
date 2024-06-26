@@ -19,7 +19,6 @@ import ru.overwrite.protect.utils.Config;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ConnectionListener implements Listener {
@@ -49,16 +48,6 @@ public class ConnectionListener implements Listener {
                     if (captureReason != null) {
                         String playerName = p.getName();
                         String ip = e.getAddress().getHostAddress();
-                        if (pluginConfig.secure_settings_enable_ip_whitelist) {
-                            if (!isIPAllowed(playerName, ip)) {
-                                if (!plugin.isExcluded(p, pluginConfig.excluded_ip_whitelist)) {
-                                    plugin.checkFail(
-                                            playerName,
-                                            plugin.getConfig()
-                                                    .getStringList("commands.not-admin-ip"));
-                                }
-                            }
-                        }
                         if (!api.ips.contains(playerName + ip)
                                 && pluginConfig.session_settings_session) {
                             if (!plugin.isExcluded(p, pluginConfig.excluded_admin_pass)) {
@@ -90,28 +79,6 @@ public class ConnectionListener implements Listener {
                         plugin.sendAlert(p, pluginConfig.broadcasts_joined);
                     }
                 });
-    }
-
-    private boolean isIPAllowed(String p, String ip) {
-        List<String> ips = pluginConfig.ip_whitelist.get(p);
-        String[] ipParts = ip.split("\\.");
-
-        return ips.stream()
-                .anyMatch(
-                        allowedIP -> {
-                            String[] allowedParts = allowedIP.split("\\.");
-                            if (ipParts.length != allowedParts.length) {
-                                return false;
-                            }
-
-                            for (int i = 0; i < ipParts.length; i++) {
-                                if (!allowedParts[i].equals("*")
-                                        && !allowedParts[i].equals(ipParts[i])) {
-                                    return false;
-                                }
-                            }
-                            return true;
-                        });
     }
 
     public final Map<String, Integer> rejoins = new HashMap<>();
