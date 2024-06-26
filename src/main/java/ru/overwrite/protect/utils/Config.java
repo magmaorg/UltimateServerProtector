@@ -25,11 +25,11 @@ public class Config {
         this.logger = plugin.getPluginLogger();
     }
 
-    public Set<String> perms, blacklisted_perms;
+    public Set<String> perms;
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> excluded_admin_pass, excluded_blacklisted_perms;
+    public List<String> excluded_admin_pass;
     public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_consoleonly,
             uspmsg_reloaded,
@@ -73,7 +73,6 @@ public class Config {
             blocking_settings_allow_orientation_change,
             main_settings_enable_admin_commands,
             secure_settings_enable_notadmin_punish,
-            secure_settings_enable_permission_blacklist,
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter;
@@ -148,7 +147,6 @@ public class Config {
             logger.warn("Configuration section secure-settings not found!");
             configFile.createSection("secure-settings");
             configFile.set("secure-settings.enable-notadmin-punish", false);
-            configFile.set("secure-settings.enable-permission-blacklist", false);
             configFile.set("secure-settings.only-console-usp", false);
             configFile.set("secure-settings.enable-excluded-players", false);
             configFile.set("secure-settings.call-event-on-password-enter", false);
@@ -157,8 +155,6 @@ public class Config {
         }
         secure_settings_enable_notadmin_punish =
                 secureSettings.getBoolean("enable-notadmin-punish", false);
-        secure_settings_enable_permission_blacklist =
-                secureSettings.getBoolean("enable-permission-blacklist", false);
         secure_settings_only_console_usp = secureSettings.getBoolean("only-console-usp", false);
         secure_settings_enable_excluded_players =
                 secureSettings.getBoolean("enable-excluded-players", false);
@@ -175,20 +171,11 @@ public class Config {
         perms = new HashSet<>(config.getStringList("permissions"));
     }
 
-    public void loadLists(FileConfiguration config) {
-        ConfigurationSection secureSettings = config.getConfigurationSection("secure-settings");
-        if (secureSettings.getBoolean("enable-permission-blacklist")) {
-            blacklisted_perms = new HashSet<>(config.getStringList("blacklisted-perms"));
-        }
-    }
-
     public void setupExcluded(FileConfiguration config) {
         if (config.getBoolean("secure-settings.enable-excluded-players")) {
             ConfigurationSection excludedPlayers =
                     config.getConfigurationSection("excluded-players");
             excluded_admin_pass = new ArrayList<>(excludedPlayers.getStringList("admin-pass"));
-            excluded_blacklisted_perms =
-                    new ArrayList<>(excludedPlayers.getStringList("blacklisted-perms"));
         }
     }
 

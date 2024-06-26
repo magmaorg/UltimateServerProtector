@@ -99,7 +99,6 @@ public class ServerProtectorManager extends JavaPlugin {
 
     private void setupPluginConfig(FileConfiguration config) {
         pluginConfig.loadPerms(config);
-        pluginConfig.loadLists(config);
         pluginConfig.setupExcluded(config);
         FileConfiguration configFile = pluginConfig.getFile(path, "config.yml");
         pluginConfig.loadMainSettings(config, configFile);
@@ -149,9 +148,6 @@ public class ServerProtectorManager extends JavaPlugin {
         taskManager.startCapturesTimer(config);
         if (pluginConfig.secure_settings_enable_notadmin_punish) {
             taskManager.startAdminCheck(config);
-        }
-        if (pluginConfig.secure_settings_enable_permission_blacklist) {
-            taskManager.startPermsCheck(config);
         }
     }
 

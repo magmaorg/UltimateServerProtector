@@ -102,25 +102,6 @@ public final class TaskManager {
                 40L);
     }
 
-    public void startPermsCheck(FileConfiguration config) {
-        runner.runPeriodicalAsync(
-                () -> {
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        for (String badperm : this.pluginConfig.blacklisted_perms) {
-                            if (p.hasPermission(badperm)
-                                    && !plugin.isExcluded(
-                                            p, this.pluginConfig.excluded_blacklisted_perms)) {
-                                plugin.checkFail(
-                                        p.getName(),
-                                        config.getStringList("commands.have-blacklisted-perm"));
-                            }
-                        }
-                    }
-                },
-                5L,
-                20L);
-    }
-
     public void startCapturesTimer(FileConfiguration config) {
         runner.runPeriodicalAsync(
                 () -> {
