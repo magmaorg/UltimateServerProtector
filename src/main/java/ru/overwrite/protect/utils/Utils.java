@@ -7,6 +7,7 @@ public final class Utils {
         return player.getAddress().getAddress().getHostAddress();
     }
 
+    @SuppressWarnings("deprecation")
     public static void sendTitleMessage(String[] titleMessages, Player p) {
         p.sendTitle(titleMessages[0], titleMessages[1], 10, 60, 15);
     }

@@ -48,7 +48,7 @@ public class ServerProtectorAPI {
 
     public void authorisePlayer(Player p) {
         if (isAuthorised(p)) {
-            logger.warn("Unable to authorise " + p.getName() + " Reason: Alerady authorised");
+            logger.warn("Unable to authorise " + p.getName() + " Reason: Already authorised");
             return;
         }
         ips.add(p.getName() + Utils.getIp(p));

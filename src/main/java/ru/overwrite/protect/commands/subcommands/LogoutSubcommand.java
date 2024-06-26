@@ -12,6 +12,7 @@ public class LogoutSubcommand extends AbstractSubCommand {
         super(plugin, "logout", "serverprotector.protect", false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) {
