@@ -46,11 +46,6 @@ public class ChatListener implements Listener {
         if (label.equals("/pas")) {
             return;
         }
-        for (String command : pluginConfig.allowed_commands) {
-            if (label.equals(command) || message.equalsIgnoreCase(command)) {
-                return;
-            }
-        }
         e.setCancelled(true);
     }
 

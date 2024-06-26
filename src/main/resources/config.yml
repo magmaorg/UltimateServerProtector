@@ -173,14 +173,6 @@ permissions:
 blacklisted-perms:
   - "*"
 
-# Команды, которые можно вводить до ввода админ-пароля (указывать вместе с /)
-allowed-commands:
-  - "/l"
-  - "/login"
-  - "/reg"
-  - "/register"
-  - "/captcha"
-
 # Каким игрокам разрешено иметь ОП права
 op-whitelist:
   - Overwrite

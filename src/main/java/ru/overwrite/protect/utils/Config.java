@@ -31,8 +31,7 @@ public class Config {
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> allowed_commands,
-            op_whitelist,
+    public List<String> op_whitelist,
             excluded_admin_pass,
             excluded_op_whitelist,
             excluded_ip_whitelist,
@@ -274,7 +273,6 @@ public class Config {
     }
 
     public void loadLists(FileConfiguration config) {
-        allowed_commands = new ArrayList<>(config.getStringList("allowed-commands"));
         ConfigurationSection secureSettings = config.getConfigurationSection("secure-settings");
         if (secureSettings.getBoolean("enable-op-whitelist")) {
             op_whitelist = new ArrayList<>(config.getStringList("op-whitelist"));
