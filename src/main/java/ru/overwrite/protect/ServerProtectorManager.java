@@ -38,8 +38,6 @@ public class ServerProtectorManager extends JavaPlugin {
             new SimpleDateFormat("[dd-MM-yyy] HH:mm:ss -");
     private final Logger pluginLogger = new BukkitLogger(this);
 
-    public boolean paper;
-
     public FileConfiguration messageFile;
     public FileConfiguration dataFile;
 
@@ -76,30 +74,6 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public Runner getRunner() {
         return runner;
-    }
-
-    public boolean checkPaper(FileConfiguration messageFile) {
-        if (server.getName().equals("CraftBukkit")) {
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.baseline-warn",
-                            "§6============= §c! WARNING ! §c============="));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.paper-1",
-                            "§eYou are using an unstable core for your MC server! It's recommended"
-                                    + " to use §aPaper"));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.paper-2",
-                            "§eDownload Paper: §ahttps://papermc.io/downloads/all"));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.baseline-warn",
-                            "§6============= §c! WARNING ! §c============="));
-            return false;
-        }
-        return true;
     }
 
     public void loadConfigs(FileConfiguration config) {
@@ -155,7 +129,7 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginManager.registerEvents(new ChatListener(this), this);
         pluginManager.registerEvents(new ConnectionListener(this), this);
         pluginManager.registerEvents(new MainListener(this), this);
-        if (paper && pluginConfig.blocking_settings_block_tab_complete) {
+        if (pluginConfig.blocking_settings_block_tab_complete) {
             pluginManager.registerEvents(new TabCompleteListener(this), this);
         }
     }

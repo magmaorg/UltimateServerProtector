@@ -72,5 +72,3 @@ uspmsg:
 system:
   baseline-warn: "§6============= §c! ВНИМАНИЕ ! §c============="
   baseline-default: "§6========================================"
-  paper-1: "§eВы используете нестабильное ядро для вашего сервера Minecraft! Рекомендуется использовать §aPaper"
-  paper-2: "§eСкачать Paper: §ahttps://papermc.io/downloads/all"

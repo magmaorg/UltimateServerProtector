@@ -21,7 +21,6 @@ public final class ServerProtector extends ServerProtectorManager {
         setupLogger(config);
         loadConfigs(config);
         PluginManager pluginManager = server.getPluginManager();
-        paper = checkPaper(messageFile);
         registerListeners(pluginManager);
         registerCommands(pluginManager, config);
         startTasks(config);

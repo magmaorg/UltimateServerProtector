@@ -44,9 +44,6 @@ public class ChatListener implements Listener {
         String message = e.getMessage();
         String label = cutCommand(message).toLowerCase();
         if (label.equals("/pas")) {
-            if (!plugin.paper) {
-                passwordHandler.checkPassword(p, message.split(" ")[1], false);
-            }
             return;
         }
         for (String command : pluginConfig.allowed_commands) {
