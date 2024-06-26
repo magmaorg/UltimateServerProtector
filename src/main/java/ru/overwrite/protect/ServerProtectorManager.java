@@ -116,7 +116,6 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.loadPunishSettings(config, configFile);
         pluginConfig.loadSessionSettings(config, configFile);
         pluginConfig.loadBossbarSettings(config, configFile);
-        pluginConfig.loadEffects(config, configFile);
         pluginConfig.loadLoggingSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
         pluginConfig.loadUspMessages(messageFile);
@@ -207,16 +206,8 @@ public class ServerProtectorManager extends JavaPlugin {
     public void giveEffect(Player player) {
         runner.runPlayer(
                 () -> {
-                    for (String s : pluginConfig.effect_settings_effects) {
-                        String[] splittedEffect = s.split(";");
-                        PotionEffectType types =
-                                PotionEffectType.getByName(splittedEffect[0].toUpperCase());
-                        int level =
-                                splittedEffect.length > 1
-                                        ? Integer.parseInt(splittedEffect[1]) - 1
-                                        : 0;
-                        player.addPotionEffect(new PotionEffect(types, 99999, level));
-                    }
+                    PotionEffectType types = PotionEffectType.getByName("BLINDNESS");
+                    player.addPotionEffect(new PotionEffect(types, 99999, 2));
                 },
                 player);
     }

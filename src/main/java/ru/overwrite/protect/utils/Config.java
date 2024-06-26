@@ -31,8 +31,7 @@ public class Config {
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> effect_settings_effects,
-            allowed_commands,
+    public List<String> allowed_commands,
             op_whitelist,
             excluded_admin_pass,
             excluded_op_whitelist,
@@ -102,7 +101,6 @@ public class Config {
             secure_settings_call_event_on_password_enter,
             session_settings_session,
             session_settings_session_time_enabled,
-            effect_settings_enable_effects,
             logging_settings_logging_pas,
             logging_settings_logging_join,
             logging_settings_logging_enable_disable,
@@ -249,20 +247,6 @@ public class Config {
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {
         ConfigurationSection bossbar = plugin.messageFile.getConfigurationSection("bossbar");
         bossbar_message = getMessage(bossbar, "message");
-    }
-
-    public void loadEffects(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection effectSettings = config.getConfigurationSection("effect-settings");
-        if (!configFile.contains("effect-settings")) {
-            logger.warn("Configuration section effect-settings not found!");
-            configFile.createSection("effect-settings");
-            configFile.set("effect-settings.enable-effects", true);
-            configFile.set("effect-settings.effects", List.of("BLINDNESS;3"));
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section effect-settings");
-        }
-        effect_settings_enable_effects = effectSettings.getBoolean("enable-effects", true);
-        effect_settings_effects = effectSettings.getStringList("effects");
     }
 
     public void loadLoggingSettings(FileConfiguration config, FileConfiguration configFile) {

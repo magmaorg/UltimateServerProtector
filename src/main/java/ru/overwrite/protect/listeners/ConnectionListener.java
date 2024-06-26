@@ -83,9 +83,7 @@ public class ConnectionListener implements Listener {
                     CaptureReason captureReason = plugin.checkPermissions(p);
                     if (captureReason != null) {
                         if (api.isCaptured(p)) {
-                            if (pluginConfig.effect_settings_enable_effects) {
-                                plugin.giveEffect(p);
-                            }
+                            plugin.giveEffect(p);
                             plugin.applyHide(p);
                         }
                         if (pluginConfig.logging_settings_logging_join) {

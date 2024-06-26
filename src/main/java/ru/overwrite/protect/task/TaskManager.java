@@ -61,9 +61,7 @@ public final class TaskManager {
                                     Sound.valueOf("ENTITY_ITEM_BREAK"),
                                     1.0f,
                                     1.0f);
-                            if (pluginConfig.effect_settings_enable_effects) {
-                                plugin.giveEffect(p);
-                            }
+                            plugin.giveEffect(p);
                             plugin.applyHide(p);
                             if (pluginConfig.logging_settings_logging_pas) {
                                 plugin.logAction("log-format.captured", p, new Date());

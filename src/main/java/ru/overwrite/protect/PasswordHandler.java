@@ -103,10 +103,8 @@ public class PasswordHandler {
         String playerName = p.getName();
         plugin.time.remove(playerName);
         p.playSound(p.getLocation(), Sound.valueOf("ENTITY_PLAYER_LEVELUP"), 1.0f, 1.0f);
-        if (pluginConfig.effect_settings_enable_effects) {
-            for (PotionEffect s : p.getActivePotionEffects()) {
-                p.removePotionEffect(s.getType());
-            }
+        for (PotionEffect s : p.getActivePotionEffects()) {
+            p.removePotionEffect(s.getType());
         }
         this.showPlayer(p);
         api.authorisePlayer(p);
