@@ -25,7 +25,6 @@ import ru.overwrite.protect.task.PaperRunner;
 import ru.overwrite.protect.task.Runner;
 import ru.overwrite.protect.task.TaskManager;
 import ru.overwrite.protect.utils.Config;
-import ru.overwrite.protect.utils.PluginMessage;
 import ru.overwrite.protect.utils.Utils;
 import ru.overwrite.protect.utils.logging.BukkitLogger;
 import ru.overwrite.protect.utils.logging.PaperLogger;
@@ -42,8 +41,6 @@ public class ServerProtectorManager extends JavaPlugin {
     private final Logger pluginLogger =
             Utils.FOLIA ? new PaperLogger(this) : new BukkitLogger(this);
 
-    public boolean proxy = false;
-
     public boolean paper;
 
     public FileConfiguration messageFile;
@@ -57,7 +54,6 @@ public class ServerProtectorManager extends JavaPlugin {
     private final ServerProtectorAPI api = new ServerProtectorAPI(this);
     private final PasswordHandler passwordHandler = new PasswordHandler(this);
     private final Runner runner = Utils.FOLIA ? new PaperRunner(this) : new BukkitRunner(this);
-    private PluginMessage pluginMessage;
 
     public Map<String, Integer> time;
 
@@ -75,10 +71,6 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public PasswordHandler getPasswordHandler() {
         return passwordHandler;
-    }
-
-    public PluginMessage getPluginMessage() {
-        return pluginMessage;
     }
 
     public Logger getPluginLogger() {
@@ -111,49 +103,6 @@ public class ServerProtectorManager extends JavaPlugin {
             return false;
         }
         return true;
-    }
-
-    public boolean isSafe(FileConfiguration messageFile, PluginManager pluginManager) {
-        if (server.spigot().getConfig().getBoolean("settings.bungeecord")) {
-            if (pluginManager.isPluginEnabled("BungeeGuard")) {
-                return true;
-            }
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.baseline-warn",
-                            "§6============= §c! WARNING ! §c============="));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.bungeecord-1",
-                            "§eYou have the §6bungeecord setting §aenabled§e, but the §6BungeeGuard"
-                                    + " §eplugin is not installed!"));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.bungeecord-2",
-                            "§eWithout this plugin, you are exposed to §csecurity risks! §eInstall"
-                                    + " it for further safe operation."));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.bungeecord-3",
-                            "§eDownload BungeeGuard:"
-                                    + " §ahttps://www.spigotmc.org/resources/bungeeguard.79601/"));
-            pluginLogger.info(
-                    messageFile.getString(
-                            "system.baseline-warn",
-                            "§6============= §c! WARNING ! §c============="));
-            server.shutdown();
-            return false;
-        }
-        return true;
-    }
-
-    public void setupProxy(FileConfiguration config) {
-        if (config.getBoolean("main-settings.proxy")) {
-            server.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-            pluginMessage = new PluginMessage(this);
-            server.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", pluginMessage);
-            proxy = true;
-        }
     }
 
     public void loadConfigs(FileConfiguration config) {
@@ -422,9 +371,6 @@ public class ServerProtectorManager extends JavaPlugin {
                 if (ps.hasPermission("serverprotector.admin")) {
                     ps.sendMessage(msg);
                 }
-            }
-            if (proxy) {
-                pluginMessage.sendCrossProxy(p, msg);
             }
         }
         if (pluginConfig.message_settings_enable_console_broadcasts) {

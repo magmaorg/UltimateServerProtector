@@ -19,12 +19,8 @@ public final class ServerProtector extends ServerProtectorManager {
         saveDefaultConfig();
         FileConfiguration config = getConfig();
         setupLogger(config);
-        setupProxy(config);
         loadConfigs(config);
         PluginManager pluginManager = server.getPluginManager();
-        if (!isSafe(messageFile, pluginManager)) {
-            return;
-        }
         paper = checkPaper(messageFile);
         registerListeners(pluginManager);
         registerCommands(pluginManager, config);
@@ -53,10 +49,6 @@ public final class ServerProtector extends ServerProtectorManager {
             }
         }
         getRunner().cancelTasks();
-        if (proxy) {
-            server.getMessenger().unregisterOutgoingPluginChannel(this);
-            server.getMessenger().unregisterIncomingPluginChannel(this);
-        }
         if (config.getBoolean("secure-settings.shutdown-on-disable")) {
             if (!config.getBoolean("secure-settings.shutdown-on-disable-only-if-plugman")) {
                 server.shutdown();

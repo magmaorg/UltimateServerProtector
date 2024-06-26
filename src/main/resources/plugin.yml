@@ -5,7 +5,7 @@ main: ru.overwrite.protect.ServerProtector
 api-version: 1.13
 folia-supported: true
 load-priority: STARTUP
-loadafter: [LuckPerms, BungeeGuard]
+loadafter: [LuckPerms]
 commands:
   ultimateserverprotector:
     aliases: [usp, serverprotector]
