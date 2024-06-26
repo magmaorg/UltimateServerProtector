@@ -40,7 +40,6 @@ uspmsg:
   playeronly: "&cДанная команда может быть исполнена только игроком!"
   logout: "&aВаша сессия была сброшена"
   reloaded: "&aПлагин перезагружен"
-  rebooted: "&aПлагин перезапущен"
   playernotfound: "&cАккаунт %nick% не найден в системе!"
   alreadyinconfig: "&aДанный аккаунт уже находится в конфиге"
   notinconfig: "&cДанный аккаунт не находится в конфиге"
@@ -51,7 +50,6 @@ uspmsg:
   usage: "&7&l> &7Использование:"
   usage-logout: "&6/%cmd% logout&7 - завешить сессию"
   usage-reload: "&6/%cmd% reload&7 - перезагрузить конфиг"
-  usage-reboot: "&6/%cmd% reboot&7 - перезапустить плагин"
   usage-setpass: "&6/%cmd% setpass (ник) (пароль) &7- установить пароль игроку"
   usage-rempass: "&6/%cmd% rempass (ник) &7- удалить пароль игроку"
 

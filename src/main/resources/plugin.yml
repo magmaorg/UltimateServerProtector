@@ -12,6 +12,5 @@ permissions:
   serverprotector.admin:
     children:
       serverprotector.reload: true
-      serverprotector.reboot: true
       serverprotector.setpass: true
       serverprotector.rempass: true

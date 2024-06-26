@@ -19,7 +19,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         pluginConfig = plugin.getPluginConfig();
         registerSubCommand(new LogoutSubcommand(plugin));
         registerSubCommand(new ReloadSubcommand(plugin));
-        registerSubCommand(new RebootSubcommand(plugin));
         registerSubCommand(new SetpassSubcommand(plugin));
         registerSubCommand(new RempassSubcommand(plugin));
     }
@@ -60,7 +59,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
             return;
         }
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reload, label, "serverprotector.reload");
-        sendCmdMessage(sender, pluginConfig.uspmsg_usage_reboot, label, "serverprotector.reboot");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_setpass, label, "serverprotector.setpass");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_rempass, label, "serverprotector.rempass");
     }
@@ -78,7 +76,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             completions.add("logout");
             completions.add("reload");
-            completions.add("reboot");
             completions.add("setpass");
             completions.add("rempass");
         }

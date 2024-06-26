@@ -32,7 +32,6 @@ public class Config {
     public List<String> excluded_players;
     public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_reloaded,
-            uspmsg_rebooted,
             uspmsg_playernotfound,
             uspmsg_alreadyinconfig,
             uspmsg_playeronly,
@@ -45,7 +44,6 @@ public class Config {
             uspmsg_usage,
             uspmsg_usage_logout,
             uspmsg_usage_reload,
-            uspmsg_usage_reboot,
             uspmsg_usage_setpass,
             uspmsg_usage_rempass,
             msg_message,
@@ -164,7 +162,6 @@ public class Config {
         uspmsg_playeronly = getMessage(uspmsg, "playeronly");
         uspmsg_logout = getMessage(uspmsg, "logout");
         uspmsg_reloaded = getMessage(uspmsg, "reloaded");
-        uspmsg_rebooted = getMessage(uspmsg, "rebooted");
         uspmsg_playernotfound = getMessage(uspmsg, "playernotfound");
         uspmsg_alreadyinconfig = getMessage(uspmsg, "alreadyinconfig");
         uspmsg_notinconfig = getMessage(uspmsg, "notinconfig");
@@ -175,7 +172,6 @@ public class Config {
         uspmsg_usage = getMessage(uspmsg, "usage");
         uspmsg_usage_logout = getMessage(uspmsg, "usage-logout");
         uspmsg_usage_reload = getMessage(uspmsg, "usage-reload");
-        uspmsg_usage_reboot = getMessage(uspmsg, "usage-reboot");
         uspmsg_usage_setpass = getMessage(uspmsg, "usage-setpass");
         uspmsg_usage_rempass = getMessage(uspmsg, "usage-rempass");
     }
