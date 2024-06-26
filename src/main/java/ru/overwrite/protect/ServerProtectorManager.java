@@ -24,7 +24,6 @@ import ru.overwrite.protect.task.PaperRunner;
 import ru.overwrite.protect.task.Runner;
 import ru.overwrite.protect.task.TaskManager;
 import ru.overwrite.protect.utils.Config;
-import ru.overwrite.protect.utils.PAPIUtils;
 import ru.overwrite.protect.utils.PluginMessage;
 import ru.overwrite.protect.utils.Utils;
 import ru.overwrite.protect.utils.logging.BukkitLogger;
@@ -340,9 +339,6 @@ public class ServerProtectorManager extends JavaPlugin {
 	public void sendAlert(Player p, String msg) {
 		if (pluginConfig.message_settings_enable_broadcasts) {
 			msg = msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p));
-			if (pluginConfig.main_settings_papi_support) {
-				msg = PAPIUtils.parsePlaceholders(p, msg, pluginConfig.serializer);
-			}
 			for (Player ps : server.getOnlinePlayers()) {
 				if (ps.hasPermission("serverprotector.admin")) {
 					ps.sendMessage(msg);
@@ -353,11 +349,7 @@ public class ServerProtectorManager extends JavaPlugin {
 			}
 		}
 		if (pluginConfig.message_settings_enable_console_broadcasts) {
-			msg = msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p));
-			if (pluginConfig.main_settings_papi_support) {
-				msg = PAPIUtils.parsePlaceholders(p, msg, pluginConfig.serializer);
-			}
-			server.getConsoleSender().sendMessage(msg);
+			server.getConsoleSender().sendMessage(msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p)));
 		}
 	}
 

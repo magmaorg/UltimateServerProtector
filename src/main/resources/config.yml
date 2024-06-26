@@ -26,9 +26,6 @@ main-settings:
   update-checker: true
   # Интервал основной проверки в тиках (не трогайте, если не знаете, как это работает)
   check-interval: 40
-  # Включить ли поддержку PlaceholderAPI для сообщений?
-  # Применяется только к сообщениям, где фигурирует игрок
-  papi-support: false
 
 # Настройки шифрования паролей
 encryption-settings:
