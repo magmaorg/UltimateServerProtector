@@ -66,8 +66,7 @@ public class Config {
             blocking_settings_block_inventory_open,
             blocking_settings_hide_on_entering,
             blocking_settings_hide_other_on_entering,
-            blocking_settings_allow_orientation_change,
-            secure_settings_enable_notadmin_punish;
+            blocking_settings_allow_orientation_change;
 
     public void setupPasswords(FileConfiguration dataFile) {
         per_player_passwords = new ConcurrentHashMap<>();
@@ -125,19 +124,6 @@ public class Config {
                 blockingSettings.getBoolean("hide-other-on-entering", true);
         blocking_settings_allow_orientation_change =
                 blockingSettings.getBoolean("allow-orientation-change", false);
-    }
-
-    public void loadSecureSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection secureSettings = config.getConfigurationSection("secure-settings");
-        if (!configFile.contains("secure-settings")) {
-            logger.warn("Configuration section secure-settings not found!");
-            configFile.createSection("secure-settings");
-            configFile.set("secure-settings.enable-notadmin-punish", false);
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section secure-settings");
-        }
-        secure_settings_enable_notadmin_punish =
-                secureSettings.getBoolean("enable-notadmin-punish", false);
     }
 
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {

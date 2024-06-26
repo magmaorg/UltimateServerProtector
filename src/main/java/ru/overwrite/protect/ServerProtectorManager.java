@@ -102,7 +102,6 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.setupExcluded(config);
         FileConfiguration configFile = pluginConfig.getFile(path, "config.yml");
         pluginConfig.loadMainSettings(config, configFile);
-        pluginConfig.loadSecureSettings(config, configFile);
         pluginConfig.loadAdditionalChecks(config, configFile);
         pluginConfig.loadBossbarSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
@@ -146,9 +145,6 @@ public class ServerProtectorManager extends JavaPlugin {
         taskManager.startCapturesMessages(config);
         time = new ConcurrentHashMap<>();
         taskManager.startCapturesTimer(config);
-        if (pluginConfig.secure_settings_enable_notadmin_punish) {
-            taskManager.startAdminCheck(config);
-        }
     }
 
     public void setupLogger(FileConfiguration config) {
