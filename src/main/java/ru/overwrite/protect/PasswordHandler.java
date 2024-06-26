@@ -126,10 +126,8 @@ public class PasswordHandler {
         if (pluginConfig.logging_settings_logging_pas) {
             plugin.logAction("log-format.passed", p, new Date());
         }
-        if (pluginConfig.bossbar_settings_enable_bossbar) {
-            if (bossbars.get(playerName) != null) {
-                bossbars.get(playerName).removeAll();
-            }
+        if (bossbars.get(playerName) != null) {
+            bossbars.get(playerName).removeAll();
         }
         plugin.sendAlert(p, pluginConfig.broadcasts_passed);
     }

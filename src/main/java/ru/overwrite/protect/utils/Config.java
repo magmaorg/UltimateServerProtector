@@ -84,8 +84,6 @@ public class Config {
             broadcasts_joined,
             broadcasts_captured,
             bossbar_message,
-            bossbar_settings_bar_color,
-            bossbar_settings_bar_style,
             main_settings_prefix;
     public boolean blocking_settings_block_item_drop,
             blocking_settings_block_item_pickup,
@@ -100,7 +98,6 @@ public class Config {
             punish_settings_enable_attempts,
             punish_settings_enable_time,
             punish_settings_enable_rejoin,
-            bossbar_settings_enable_bossbar,
             secure_settings_enable_op_whitelist,
             secure_settings_enable_notadmin_punish,
             secure_settings_enable_permission_blacklist,
@@ -256,22 +253,6 @@ public class Config {
     }
 
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection bossbarSettings = config.getConfigurationSection("bossbar-settings");
-        if (!configFile.contains("bossbar-settings")) {
-            logger.warn("Configuration section bossbar-settings not found!");
-            configFile.createSection("bossbar-settings");
-            configFile.set("bossbar-settings.enable-bossbar", false);
-            configFile.set("bossbar-settings.bar-color", "RED");
-            configFile.set("bossbar-settings.bar-style", "SEGMENTED_12");
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section bossbar-settings");
-        }
-        if (!bossbarSettings.getBoolean("enable-bossbar", true)) {
-            return;
-        }
-        bossbar_settings_enable_bossbar = bossbarSettings.getBoolean("enable-bossbar", true);
-        bossbar_settings_bar_color = bossbarSettings.getString("bar-color", "RED");
-        bossbar_settings_bar_style = bossbarSettings.getString("bar-style", "SEGMENTED_12");
         ConfigurationSection bossbar = plugin.messageFile.getConfigurationSection("bossbar");
         bossbar_message = getMessage(bossbar, "message");
     }

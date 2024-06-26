@@ -148,28 +148,21 @@ public final class TaskManager {
                         String playerName = p.getName();
                         if (!plugin.time.containsKey(playerName)) {
                             plugin.time.put(playerName, 0);
-                            if (this.pluginConfig.bossbar_settings_enable_bossbar) {
-                                BossBar bossbar =
-                                        Bukkit.createBossBar(
-                                                this.pluginConfig.bossbar_message.replace(
-                                                        "%time%",
-                                                        Integer.toString(
-                                                                this.pluginConfig
-                                                                        .punish_settings_time)),
-                                                BarColor.valueOf(
-                                                        this.pluginConfig
-                                                                .bossbar_settings_bar_color),
-                                                BarStyle.valueOf(
-                                                        this.pluginConfig
-                                                                .bossbar_settings_bar_style));
-                                bossbar.addPlayer(p);
-                                passwordHandler.bossbars.put(playerName, bossbar);
-                            }
+                            BossBar bossbar =
+                                    Bukkit.createBossBar(
+                                            this.pluginConfig.bossbar_message.replace(
+                                                    "%time%",
+                                                    Integer.toString(
+                                                            this.pluginConfig
+                                                                    .punish_settings_time)),
+                                            BarColor.valueOf("RED"),
+                                            BarStyle.valueOf("SEGMENTED_12"));
+                            bossbar.addPlayer(p);
+                            passwordHandler.bossbars.put(playerName, bossbar);
                         } else {
                             plugin.time.compute(playerName, (k, currentTime) -> currentTime + 1);
                             int newTime = plugin.time.get(playerName);
-                            if (this.pluginConfig.bossbar_settings_enable_bossbar
-                                    && passwordHandler.bossbars.get(playerName) != null) {
+                            if (passwordHandler.bossbars.get(playerName) != null) {
                                 passwordHandler
                                         .bossbars
                                         .get(playerName)

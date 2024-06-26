@@ -88,15 +88,6 @@ secure-settings:
   # Вызывать ли ServerProtectorPasswordEnterEvent при вводе пароля игроком? (Отключено по умолчанию в целях безопасности)
   call-event-on-password-enter: false
 
-# Настройка боссбара (работает только, если включено время для входа)
-bossbar-settings:
-  # Включить ли боссбар
-  enable-bossbar: true
-  # Цвет боссбара (PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE)
-  bar-color: RED
-  # Тип боссбара (SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20)
-  bar-style: SEGMENTED_12
-
 # Настройки звуков, которые будут проигрываться при вводе команд/действиях
 sound-settings:
   # Включить ли звуки при командах
