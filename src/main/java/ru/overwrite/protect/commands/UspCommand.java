@@ -47,7 +47,7 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         }
         sender.sendMessage(
                 "§6❖ §7Running §c§lUltimateServerProtector "
-                        + plugin.getDescription().getVersion()
+                        + plugin.getPluginMeta().getVersion()
                         + "§7 by §5OverwriteMC");
         return true;
     }

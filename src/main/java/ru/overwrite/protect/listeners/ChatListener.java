@@ -1,10 +1,11 @@
 package ru.overwrite.protect.listeners;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import ru.overwrite.protect.ServerProtectorManager;
@@ -18,13 +19,12 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(AsyncChatEvent e) {
         Player p = e.getPlayer();
         if (!api.isCaptured(p)) {
             return;
         }
         e.setCancelled(true);
-        e.setMessage("");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
