@@ -106,7 +106,6 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.loadSecureSettings(config, configFile);
         pluginConfig.loadAdditionalChecks(config, configFile);
         pluginConfig.loadPunishSettings(config, configFile);
-        pluginConfig.loadSessionSettings(config, configFile);
         pluginConfig.loadBossbarSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
         pluginConfig.loadUspMessages(messageFile);

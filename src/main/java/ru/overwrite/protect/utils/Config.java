@@ -79,14 +79,8 @@ public class Config {
             secure_settings_enable_permission_blacklist,
             secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
-            secure_settings_call_event_on_password_enter,
-            session_settings_session,
-            session_settings_session_time_enabled;
-    public int punish_settings_max_attempts,
-            punish_settings_time,
-            punish_settings_max_rejoins,
-            session_settings_session_time;
-
+            secure_settings_call_event_on_password_enter;
+    public int punish_settings_max_attempts, punish_settings_time, punish_settings_max_rejoins;
     public long main_settings_check_interval;
 
     public void setupPasswords(FileConfiguration dataFile) {
@@ -150,23 +144,6 @@ public class Config {
                 blockingSettings.getBoolean("hide-other-on-entering", true);
         blocking_settings_allow_orientation_change =
                 blockingSettings.getBoolean("allow-orientation-change", false);
-    }
-
-    public void loadSessionSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection sessionSettings = config.getConfigurationSection("session-settings");
-        if (!configFile.contains("session-settings")) {
-            logger.warn("Configuration section session-settings not found!");
-            configFile.createSection("session-settings");
-            configFile.set("session-settings.session", true);
-            configFile.set("session-settings.session-time-enabled", true);
-            configFile.set("session-settings.session-time", 21600);
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section session-settings");
-        }
-        session_settings_session = sessionSettings.getBoolean("session", true);
-        session_settings_session_time_enabled =
-                sessionSettings.getBoolean("session-time-enabled", true);
-        session_settings_session_time = sessionSettings.getInt("session-time", 21600);
     }
 
     public void loadPunishSettings(FileConfiguration config, FileConfiguration configFile) {

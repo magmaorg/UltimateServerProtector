@@ -47,9 +47,7 @@ public class ServerProtectorAPI {
     }
 
     public boolean isAuthorised(Player p) {
-        return pluginConfig.session_settings_session
-                ? ips.contains(p.getName() + Utils.getIp(p))
-                : saved.contains(p.getName());
+        return ips.contains(p.getName() + Utils.getIp(p));
     }
 
     public void authorisePlayer(Player p) {
@@ -57,11 +55,7 @@ public class ServerProtectorAPI {
             logger.warn("Unable to authorise " + p.getName() + " Reason: Alerady authorised");
             return;
         }
-        if (pluginConfig.session_settings_session) {
-            ips.add(p.getName() + Utils.getIp(p));
-            return;
-        }
-        saved.add(p.getName());
+        ips.add(p.getName() + Utils.getIp(p));
     }
 
     public void deauthorisePlayer(Player p) {
@@ -69,11 +63,7 @@ public class ServerProtectorAPI {
             logger.warn("Unable to deauthorise " + p.getName() + " Reason: Is not authorised");
             return;
         }
-        if (pluginConfig.session_settings_session) {
-            ips.remove(p.getName() + Utils.getIp(p));
-            return;
-        }
-        saved.remove(p.getName());
+        ips.remove(p.getName() + Utils.getIp(p));
     }
 
     public void handleInteraction(Player p, Cancellable e) {

@@ -106,16 +106,14 @@ public class PasswordHandler {
         }
         this.showPlayer(p);
         api.authorisePlayer(p);
-        if (pluginConfig.session_settings_session_time_enabled) {
-            plugin.getRunner()
-                    .runDelayedAsync(
-                            () -> {
-                                if (!api.isAuthorised(p)) {
-                                    api.deauthorisePlayer(p);
-                                }
-                            },
-                            pluginConfig.session_settings_session_time * 20L);
-        }
+        plugin.getRunner()
+                .runDelayedAsync(
+                        () -> {
+                            if (!api.isAuthorised(p)) {
+                                api.deauthorisePlayer(p);
+                            }
+                        },
+                        86400 * 20L);
         plugin.logAction("log-format.passed", p, new Date());
         if (bossbars.get(playerName) != null) {
             bossbars.get(playerName).removeAll();
