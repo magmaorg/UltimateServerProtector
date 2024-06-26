@@ -78,9 +78,7 @@ public class MainListener implements Listener {
         if (api.login.isEmpty()) return;
         if (!(e.getSender() instanceof Player)) return;
         Player p = (Player) e.getSender();
-        if (pluginConfig.blocking_settings_block_tab_complete) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction(p, e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

@@ -7,7 +7,6 @@
 #
 
 blocking-settings:
-  block-tab-complete: true
   block-damage: true
   block-damaging-entity: true
   block-inventory-open: false

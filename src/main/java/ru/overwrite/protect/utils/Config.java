@@ -54,8 +54,7 @@ public class Config {
             broadcasts_joined,
             broadcasts_captured,
             bossbar_message;
-    public boolean blocking_settings_block_tab_complete,
-            blocking_settings_block_damage,
+    public boolean blocking_settings_block_damage,
             blocking_settings_damaging_entity,
             blocking_settings_block_inventory_open,
             blocking_settings_hide_on_entering,
@@ -79,7 +78,6 @@ public class Config {
         if (!configFile.contains("blocking-settings")) {
             logger.warn("Configuration section blocking-settings not found!");
             configFile.createSection("secure-settings");
-            configFile.set("blocking-settings.block-tab-complete", true);
             configFile.set("blocking-settings.block-damage", true);
             configFile.set("blocking-settings.block-damaging-entity", true);
             configFile.set("blocking-settings.block-inventory-open", false);
@@ -89,8 +87,6 @@ public class Config {
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section blocking-settings");
         }
-        blocking_settings_block_tab_complete =
-                blockingSettings.getBoolean("block-tab-complete", true);
         blocking_settings_block_damage = blockingSettings.getBoolean("block-damage", true);
         blocking_settings_damaging_entity =
                 blockingSettings.getBoolean("block-damaging-entity", true);

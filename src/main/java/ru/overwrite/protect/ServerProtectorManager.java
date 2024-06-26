@@ -112,9 +112,7 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginManager.registerEvents(new ChatListener(this), this);
         pluginManager.registerEvents(new ConnectionListener(this), this);
         pluginManager.registerEvents(new MainListener(this), this);
-        if (pluginConfig.blocking_settings_block_tab_complete) {
-            pluginManager.registerEvents(new TabCompleteListener(this), this);
-        }
+        pluginManager.registerEvents(new TabCompleteListener(this), this);
     }
 
     public void registerCommands(PluginManager pluginManager, FileConfiguration config) {
