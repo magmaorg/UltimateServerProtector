@@ -36,15 +36,13 @@ public final class ServerProtector extends ServerProtectorManager {
             logEnableDisable(messageFile.getString("log-format.disabled"), new Date());
         }
         FileConfiguration config = getConfig();
-        if (config.getBoolean("message-settings.enable-broadcasts")) {
-            for (Player ps : server.getOnlinePlayers()) {
-                if (ps.hasPermission("serverprotector.admin") && messageFile != null) {
-                    ps.sendMessage(
-                            getPluginConfig()
-                                    .getMessage(
-                                            messageFile.getConfigurationSection("broadcasts"),
-                                            "disabled"));
-                }
+        for (Player ps : server.getOnlinePlayers()) {
+            if (ps.hasPermission("serverprotector.admin") && messageFile != null) {
+                ps.sendMessage(
+                        getPluginConfig()
+                                .getMessage(
+                                        messageFile.getConfigurationSection("broadcasts"),
+                                        "disabled"));
             }
         }
         getRunner().cancelTasks();

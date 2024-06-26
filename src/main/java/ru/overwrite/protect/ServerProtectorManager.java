@@ -141,21 +141,14 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.loadAdditionalChecks(config, configFile);
         pluginConfig.loadPunishSettings(config, configFile);
         pluginConfig.loadSessionSettings(config, configFile);
-        pluginConfig.loadMessageSettings(config, configFile);
         pluginConfig.loadBossbarSettings(config, configFile);
         pluginConfig.loadSoundSettings(config, configFile);
         pluginConfig.loadEffects(config, configFile);
         pluginConfig.loadLoggingSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
         pluginConfig.loadUspMessages(messageFile);
-        ConfigurationSection messageSettings = config.getConfigurationSection("message-settings");
-        if (messageSettings.getBoolean("send-titles")) {
-            pluginConfig.loadTitleMessages(messageFile);
-        }
-        if (messageSettings.getBoolean("enable-broadcasts")
-                || messageSettings.getBoolean("enable-console-broadcasts")) {
-            pluginConfig.loadBroadcastMessages(messageFile);
-        }
+        pluginConfig.loadTitleMessages(messageFile);
+        pluginConfig.loadBroadcastMessages(messageFile);
     }
 
     public void registerListeners(PluginManager pluginManager) {
@@ -308,19 +301,14 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public void sendAlert(Player p, String msg) {
-        if (pluginConfig.message_settings_enable_broadcasts) {
-            msg = msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p));
-            for (Player ps : server.getOnlinePlayers()) {
-                if (ps.hasPermission("serverprotector.admin")) {
-                    ps.sendMessage(msg);
-                }
+        msg = msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p));
+        for (Player ps : server.getOnlinePlayers()) {
+            if (ps.hasPermission("serverprotector.admin")) {
+                ps.sendMessage(msg);
             }
         }
-        if (pluginConfig.message_settings_enable_console_broadcasts) {
-            server.getConsoleSender()
-                    .sendMessage(
-                            msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p)));
-        }
+        server.getConsoleSender()
+                .sendMessage(msg.replace("%player%", p.getName()).replace("%ip%", Utils.getIp(p)));
     }
 
     public void logAction(String key, Player player, Date date) {

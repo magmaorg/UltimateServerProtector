@@ -81,9 +81,7 @@ public class PasswordHandler {
             return;
         }
         p.sendMessage(pluginConfig.msg_incorrect);
-        if (pluginConfig.message_settings_send_title) {
-            Utils.sendTitleMessage(pluginConfig.titles_incorrect, p);
-        }
+        Utils.sendTitleMessage(pluginConfig.titles_incorrect, p);
         if (pluginConfig.sound_settings_enable_sounds) {
             Utils.sendSound(pluginConfig.sound_settings_on_pas_fail, p);
         }
@@ -102,9 +100,7 @@ public class PasswordHandler {
         }
         api.uncapturePlayer(p);
         p.sendMessage(pluginConfig.msg_correct);
-        if (pluginConfig.message_settings_send_title) {
-            Utils.sendTitleMessage(pluginConfig.titles_correct, p);
-        }
+        Utils.sendTitleMessage(pluginConfig.titles_correct, p);
         String playerName = p.getName();
         plugin.time.remove(playerName);
         if (pluginConfig.sound_settings_enable_sounds) {

@@ -110,9 +110,6 @@ public class Config {
             secure_settings_call_event_on_password_enter,
             session_settings_session,
             session_settings_session_time_enabled,
-            message_settings_send_title,
-            message_settings_enable_broadcasts,
-            message_settings_enable_console_broadcasts,
             sound_settings_enable_sounds,
             effect_settings_enable_effects,
             logging_settings_logging_pas,
@@ -256,23 +253,6 @@ public class Config {
                 secureSettings.getBoolean("enable-excluded-players", false);
         secure_settings_call_event_on_password_enter =
                 secureSettings.getBoolean("call-event-on-password-enter", false);
-    }
-
-    public void loadMessageSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection messageSettings = config.getConfigurationSection("message-settings");
-        if (!configFile.contains("message-settings")) {
-            logger.warn("Configuration section message-settings not found!");
-            configFile.createSection("message-settings");
-            configFile.set("message-settings.send-titles", true);
-            configFile.set("message-settings.enable-broadcasts", true);
-            configFile.set("message-settings.enable-console-broadcasts", true);
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section message-settings");
-        }
-        message_settings_send_title = messageSettings.getBoolean("send-titles", true);
-        message_settings_enable_broadcasts = messageSettings.getBoolean("enable-broadcasts", true);
-        message_settings_enable_console_broadcasts =
-                messageSettings.getBoolean("enable-console-broadcasts", true);
     }
 
     public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {

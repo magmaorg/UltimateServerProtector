@@ -95,14 +95,12 @@ public final class TaskManager {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (api.isCaptured(p)) {
                             p.sendMessage(this.pluginConfig.msg_message);
-                            if (this.pluginConfig.message_settings_send_title) {
-                                Utils.sendTitleMessage(this.pluginConfig.titles_message, p);
-                            }
+                            Utils.sendTitleMessage(this.pluginConfig.titles_message, p);
                         }
                     }
                 },
                 0L,
-                config.getInt("message-settings.delay") * 20L);
+                40L);
     }
 
     public void startOpCheck(FileConfiguration config) {
