@@ -1,3 +1,2 @@
 data:
-  OverwriteMC:
-    pass: "123123"
+  OverwriteMC: "123123"

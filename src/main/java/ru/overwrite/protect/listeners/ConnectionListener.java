@@ -46,16 +46,13 @@ public class ConnectionListener implements Listener {
                         return;
                     }
                     if (captureReason != null) {
-                        String playerName = p.getName();
                         String ip = e.getAddress().getHostAddress();
-                        if (!api.ips.contains(playerName + ip)) {
+                        if (!api.ips.contains(p.getName() + ip)) {
                             if (!plugin.isExcluded(p, pluginConfig.excluded_players)) {
                                 ServerProtectorCaptureEvent captureEvent =
                                         new ServerProtectorCaptureEvent(p, ip, captureReason);
                                 captureEvent.callEvent();
-                                if (captureEvent.isCancelled()) {
-                                    return;
-                                }
+                                if (captureEvent.isCancelled()) return;
                                 api.capturePlayer(p);
                             }
                         }
@@ -68,8 +65,7 @@ public class ConnectionListener implements Listener {
         Player p = e.getPlayer();
         runner.runAsync(
                 () -> {
-                    CaptureReason captureReason = plugin.checkPermissions(p);
-                    if (captureReason != null) {
+                    if (plugin.checkPermissions(p) != null) {
                         if (api.isCaptured(p)) {
                             plugin.giveEffect(p);
                             plugin.applyHide(p);
@@ -84,22 +80,18 @@ public class ConnectionListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeave(PlayerQuitEvent event) {
-        Player p = event.getPlayer();
-        handlePlayerLeave(p);
+        handlePlayerLeave(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onKick(PlayerKickEvent event) {
-        Player p = event.getPlayer();
-        handlePlayerLeave(p);
+        handlePlayerLeave(event.getPlayer());
     }
 
     private void handlePlayerLeave(Player p) {
         String playerName = p.getName();
         if (api.isCaptured(p)) {
-            for (PotionEffect s : p.getActivePotionEffects()) {
-                p.removePotionEffect(s.getType());
-            }
+            for (PotionEffect s : p.getActivePotionEffects()) p.removePotionEffect(s.getType());
             rejoins.put(playerName, rejoins.getOrDefault(playerName, 0) + 1);
             if (isMaxRejoins(playerName)) {
                 rejoins.remove(playerName);

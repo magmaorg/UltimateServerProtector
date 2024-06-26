@@ -30,7 +30,7 @@ public class RempassSubcommand extends AbstractSubCommand {
     private void removeAdmin(String nick) {
         FileConfiguration dataFile;
         dataFile = pluginConfig.getFile(plugin.path, "data.yml");
-        dataFile.set("data." + nick + ".pass", null);
+        dataFile.set("data." + nick, null);
         dataFile.set("data." + nick, null);
         dataFile.set("data." + nick, null);
         pluginConfig.save(plugin.path, dataFile, "data.yml");

@@ -55,18 +55,14 @@ public class UspCommand implements CommandExecutor, TabCompleter {
     private void sendHelp(CommandSender sender, String label) {
         sendCmdMessage(sender, pluginConfig.uspmsg_usage, label, "serverprotector.protect");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_logout, label, "serverprotector.protect");
-        if (!sender.hasPermission("serverprotector.admin")) {
-            return;
-        }
+        if (!sender.hasPermission("serverprotector.admin")) return;
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_reload, label, "serverprotector.reload");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_setpass, label, "serverprotector.setpass");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_rempass, label, "serverprotector.rempass");
     }
 
     private void sendCmdMessage(CommandSender sender, String msg, String label, String permission) {
-        if (sender.hasPermission(permission)) {
-            sender.sendMessage(msg.replace("%cmd%", label));
-        }
+        if (sender.hasPermission(permission)) sender.sendMessage(msg.replace("%cmd%", label));
     }
 
     @Override
@@ -80,9 +76,8 @@ public class UspCommand implements CommandExecutor, TabCompleter {
             completions.add("rempass");
         }
         List<String> result = new ArrayList<>();
-        for (String c : completions) {
+        for (String c : completions)
             if (c.toLowerCase().startsWith(args[args.length - 1].toLowerCase())) result.add(c);
-        }
         return result;
     }
 }

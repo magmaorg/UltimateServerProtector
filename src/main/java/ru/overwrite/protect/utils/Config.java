@@ -52,22 +52,16 @@ public class Config {
             broadcasts_failed,
             broadcasts_passed,
             broadcasts_joined,
-            broadcasts_captured,
-            bossbar_message;
-    public boolean blocking_settings_block_inventory_open,
-            blocking_settings_hide_on_entering,
-            blocking_settings_hide_other_on_entering;
+            broadcasts_captured;
+    public boolean blocking_settings_hide_on_entering, blocking_settings_hide_other_on_entering;
 
     public void setupPasswords(FileConfiguration dataFile) {
         per_player_passwords = new ConcurrentHashMap<>();
         ConfigurationSection data = dataFile.getConfigurationSection("data");
         boolean shouldSave = false;
-        for (String nick : data.getKeys(false)) {
-            per_player_passwords.put(nick, data.getString(nick + ".pass"));
-        }
-        if (shouldSave) {
-            save(plugin.path, dataFile, "data.yml");
-        }
+        for (String nick : data.getKeys(false))
+            per_player_passwords.put(nick, data.getString(nick));
+        if (shouldSave) save(plugin.path, dataFile, "data.yml");
     }
 
     public void loadAdditionalChecks(FileConfiguration config, FileConfiguration configFile) {
@@ -75,23 +69,15 @@ public class Config {
         if (!configFile.contains("blocking-settings")) {
             logger.warn("Configuration section blocking-settings not found!");
             configFile.createSection("secure-settings");
-            configFile.set("blocking-settings.block-inventory-open", false);
             configFile.set("blocking-settings.hide-on-entering", true);
             configFile.set("blocking-settings.hide-other-on-entering", true);
             configFile.set("blocking-settings.allow-orientation-change", false);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section blocking-settings");
         }
-        blocking_settings_block_inventory_open =
-                blockingSettings.getBoolean("block-inventory-open", false);
         blocking_settings_hide_on_entering = blockingSettings.getBoolean("hide-on-entering", true);
         blocking_settings_hide_other_on_entering =
                 blockingSettings.getBoolean("hide-other-on-entering", true);
-    }
-
-    public void loadBossbarSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection bossbar = plugin.messageFile.getConfigurationSection("bossbar");
-        bossbar_message = getMessage(bossbar, "message");
     }
 
     public void loadPerms(FileConfiguration config) {
@@ -152,9 +138,7 @@ public class Config {
 
     public FileConfiguration getFile(String path, String fileName) {
         File file = new File(path, fileName);
-        if (!file.exists()) {
-            plugin.saveResource(fileName, false);
-        }
+        if (!file.exists()) plugin.saveResource(fileName, false);
         return YamlConfiguration.loadConfiguration(file);
     }
 

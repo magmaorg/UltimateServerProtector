@@ -1,7 +1,6 @@
 package ru.overwrite.protect.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import ru.overwrite.protect.ServerProtectorManager;
 
@@ -18,12 +17,10 @@ public class ReloadSubcommand extends AbstractSubCommand {
         api.login.clear();
         api.ips.clear();
         api.saved.clear();
-        for (String playerName : passwordHandler.bossbars.keySet()) {
+        for (String playerName : passwordHandler.bossbars.keySet())
             passwordHandler.bossbars.get(playerName).removeAll();
-        }
         passwordHandler.attempts.clear();
-        FileConfiguration newconfig = plugin.getConfig();
-        plugin.startTasks(newconfig);
+        plugin.startTasks(plugin.getConfig());
         sender.sendMessage(pluginConfig.uspmsg_reloaded);
         return true;
     }

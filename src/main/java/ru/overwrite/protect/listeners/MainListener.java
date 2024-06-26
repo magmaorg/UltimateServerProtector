@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,83 +16,63 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import ru.overwrite.protect.ServerProtectorManager;
 import ru.overwrite.protect.api.ServerProtectorAPI;
-import ru.overwrite.protect.utils.Config;
 
 public class MainListener implements Listener {
     private final ServerProtectorAPI api;
-    private final Config pluginConfig;
 
     public MainListener(ServerProtectorManager plugin) {
         api = plugin.getPluginAPI();
-        pluginConfig = plugin.getPluginConfig();
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent e) {
         if (api.login.isEmpty()) return;
-        Player p = e.getPlayer();
-        api.handleInteraction(p, e);
+        api.handleInteraction(e.getPlayer(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent e) {
         if (api.login.isEmpty()) return;
-        Player p = e.getPlayer();
-        api.handleInteraction(p, e);
+        api.handleInteraction(e.getPlayer(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
         if (api.login.isEmpty()) return;
-        Player p = e.getPlayer();
-        api.handleInteraction(p, e);
+        api.handleInteraction(e.getPlayer(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onItemDrop(PlayerDropItemEvent e) {
         if (api.login.isEmpty()) return;
-        Player p = e.getPlayer();
-        api.handleInteraction(p, e);
+        api.handleInteraction(e.getPlayer(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onItemPickup(EntityPickupItemEvent e) {
         if (api.login.isEmpty()) return;
         if (!(e.getEntity() instanceof Player)) return;
-        Player p = (Player) e.getEntity();
-        api.handleInteraction(p, e);
+        api.handleInteraction((Player) e.getEntity(), e);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onTabComplete(AsyncTabCompleteEvent e) {
         if (api.login.isEmpty()) return;
         if (!(e.getSender() instanceof Player)) return;
-        Player p = (Player) e.getSender();
-        api.handleInteraction(p, e);
+        api.handleInteraction((Player) e.getSender(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerDamage(EntityDamageEvent e) {
         if (api.login.isEmpty()) return;
         if (!(e.getEntity() instanceof Player)) return;
-        Player p = (Player) e.getEntity();
-        api.handleInteraction(p, e);
+        api.handleInteraction((Player) e.getEntity(), e);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerDamageEntity(EntityDamageByEntityEvent e) {
         if (api.login.isEmpty()) return;
         if (!(e.getDamager() instanceof Player)) return;
-        Player p = (Player) e.getDamager();
-        api.handleInteraction(p, e);
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onInventoryOpen(InventoryOpenEvent e) {
-        if (api.login.isEmpty()) return;
-        Player p = (Player) e.getPlayer();
-        if (pluginConfig.blocking_settings_block_inventory_open) {
-            api.handleInteraction(p, e);
-        }
+        api.handleInteraction((Player) e.getDamager(), e);
     }
 }

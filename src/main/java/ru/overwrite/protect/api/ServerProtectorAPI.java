@@ -21,9 +21,8 @@ public class ServerProtectorAPI {
     }
 
     public boolean isCaptured(Player p) {
-        if (this.login.isEmpty()) {
-            return false;
-        }
+        if (this.login.isEmpty()) return false;
+
         return this.login.contains(p.getName());
     }
 
@@ -64,8 +63,6 @@ public class ServerProtectorAPI {
     }
 
     public void handleInteraction(Player p, Cancellable e) {
-        if (isCaptured(p)) {
-            e.setCancelled(true);
-        }
+        if (isCaptured(p)) e.setCancelled(true);
     }
 }

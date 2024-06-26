@@ -37,24 +37,16 @@ public final class TaskManager {
         runner.runPeriodicalAsync(
                 () -> {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (plugin.isExcluded(p, pluginConfig.excluded_players)) {
-                            continue;
-                        }
-                        if (api.isCaptured(p)) {
-                            continue;
-                        }
+                        if (plugin.isExcluded(p, pluginConfig.excluded_players)) continue;
+                        if (api.isCaptured(p)) continue;
                         CaptureReason captureReason = plugin.checkPermissions(p);
-                        if (captureReason == null) {
-                            continue;
-                        }
+                        if (captureReason == null) continue;
                         if (!api.isAuthorised(p)) {
                             ServerProtectorCaptureEvent captureEvent =
                                     new ServerProtectorCaptureEvent(
                                             p, Utils.getIp(p), captureReason);
                             captureEvent.callEvent();
-                            if (captureEvent.isCancelled()) {
-                                continue;
-                            }
+                            if (captureEvent.isCancelled()) continue;
                             api.capturePlayer(p);
                             p.playSound(
                                     p.getLocation(),
@@ -76,12 +68,10 @@ public final class TaskManager {
         runner.runPeriodicalAsync(
                 () -> {
                     if (api.login.isEmpty()) return;
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (api.isCaptured(p) && !plugin.isAdmin(p.getName())) {
+                    for (Player p : Bukkit.getOnlinePlayers())
+                        if (api.isCaptured(p) && !plugin.isAdmin(p.getName()))
                             plugin.checkFail(
                                     p.getName(), config.getStringList("commands.not-in-config"));
-                        }
-                    }
                 },
                 0L,
                 20L);
@@ -91,12 +81,11 @@ public final class TaskManager {
         runner.runPeriodicalAsync(
                 () -> {
                     if (api.login.isEmpty()) return;
-                    for (Player p : Bukkit.getOnlinePlayers()) {
+                    for (Player p : Bukkit.getOnlinePlayers())
                         if (api.isCaptured(p)) {
                             p.sendMessage(this.pluginConfig.msg_message);
                             Utils.sendTitleMessage(this.pluginConfig.titles_message, p);
                         }
-                    }
                 },
                 0L,
                 40L);
@@ -107,16 +96,13 @@ public final class TaskManager {
                 () -> {
                     if (api.login.isEmpty()) return;
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!api.isCaptured(p)) {
-                            return;
-                        }
+                        if (!api.isCaptured(p)) return;
                         String playerName = p.getName();
                         if (!plugin.time.containsKey(playerName)) {
                             plugin.time.put(playerName, 0);
                             BossBar bossbar =
                                     Bukkit.createBossBar(
-                                            this.pluginConfig.bossbar_message.replace(
-                                                    "%time%", "60"),
+                                            "&fСекунд осталось: &c60",
                                             BarColor.valueOf("RED"),
                                             BarStyle.valueOf("SEGMENTED_12"));
                             bossbar.addPlayer(p);
@@ -129,8 +115,8 @@ public final class TaskManager {
                                         .bossbars
                                         .get(playerName)
                                         .setTitle(
-                                                this.pluginConfig.bossbar_message.replace(
-                                                        "%time%", Integer.toString(60 - newTime)));
+                                                "&fСекунд осталось: &c"
+                                                        + Integer.toString(60 - newTime));
                                 double percents = (60 - newTime) / (double) 60;
                                 if (percents > 0) {
                                     passwordHandler.bossbars.get(playerName).setProgress(percents);

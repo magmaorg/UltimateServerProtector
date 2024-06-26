@@ -35,24 +35,21 @@ public class PasswordHandler {
                 () -> {
                     ServerProtectorPasswordEnterEvent enterEvent =
                             new ServerProtectorPasswordEnterEvent(p, input);
-                    if (enterEvent.isCancelled()) {
-                        return;
-                    }
-                    if (pluginConfig.per_player_passwords.get(p.getName()) == null) {
+                    if (enterEvent.isCancelled()) return;
+                    String playerPass = pluginConfig.per_player_passwords.get(p.getName());
+                    if (playerPass == null) {
                         failedPassword(p);
                         return;
                     }
-                    String playerPass = pluginConfig.per_player_passwords.get(p.getName());
                     if (input.equals(playerPass)) {
                         correctPassword(p);
                         return;
                     }
                     failedPassword(p);
-                    if (isAttemptsMax(p.getName())) {
+                    if (isAttemptsMax(p.getName()))
                         plugin.checkFail(
                                 p.getName(),
                                 plugin.getConfig().getStringList("commands.failed-pass"));
-                    }
                 };
         if (resync) {
             plugin.getRunner().runPlayer(run, p);
@@ -72,9 +69,7 @@ public class PasswordHandler {
         ServerProtectorPasswordFailEvent failEvent =
                 new ServerProtectorPasswordFailEvent(p, attempts.get(playerName));
         failEvent.callEvent();
-        if (failEvent.isCancelled()) {
-            return;
-        }
+        if (failEvent.isCancelled()) return;
         p.sendMessage(pluginConfig.msg_incorrect);
         Utils.sendTitleMessage(pluginConfig.titles_incorrect, p);
         p.playSound(p.getLocation(), Sound.valueOf("ENTITY_VILLAGER_NO"), 1.0f, 1.0f);
@@ -86,47 +81,34 @@ public class PasswordHandler {
         ServerProtectorPasswordSuccessEvent successEvent =
                 new ServerProtectorPasswordSuccessEvent(p);
         successEvent.callEvent();
-        if (successEvent.isCancelled()) {
-            return;
-        }
+        if (successEvent.isCancelled()) return;
         api.uncapturePlayer(p);
         p.sendMessage(pluginConfig.msg_correct);
         Utils.sendTitleMessage(pluginConfig.titles_correct, p);
         String playerName = p.getName();
         plugin.time.remove(playerName);
         p.playSound(p.getLocation(), Sound.valueOf("ENTITY_PLAYER_LEVELUP"), 1.0f, 1.0f);
-        for (PotionEffect s : p.getActivePotionEffects()) {
-            p.removePotionEffect(s.getType());
-        }
+        for (PotionEffect s : p.getActivePotionEffects()) p.removePotionEffect(s.getType());
         this.showPlayer(p);
         api.authorisePlayer(p);
         plugin.getRunner()
                 .runDelayedAsync(
                         () -> {
-                            if (!api.isAuthorised(p)) {
-                                api.deauthorisePlayer(p);
-                            }
+                            if (!api.isAuthorised(p)) api.deauthorisePlayer(p);
                         },
                         86400 * 20L);
         plugin.logAction("log-format.passed", p, new Date());
-        if (bossbars.get(playerName) != null) {
-            bossbars.get(playerName).removeAll();
-        }
+        if (bossbars.get(playerName) != null) bossbars.get(playerName).removeAll();
         plugin.sendAlert(p, pluginConfig.broadcasts_passed);
     }
 
     private void showPlayer(Player p) {
-        if (pluginConfig.blocking_settings_hide_on_entering) {
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (!onlinePlayer.equals(p)) {
-                    onlinePlayer.showPlayer(plugin, p);
-                }
-            }
-        }
-        if (pluginConfig.blocking_settings_hide_other_on_entering) {
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+        if (pluginConfig.blocking_settings_hide_on_entering)
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                if (!onlinePlayer.equals(p)) onlinePlayer.showPlayer(plugin, p);
+
+        if (pluginConfig.blocking_settings_hide_other_on_entering)
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 p.showPlayer(plugin, onlinePlayer);
-            }
-        }
     }
 }

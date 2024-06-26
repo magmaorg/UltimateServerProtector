@@ -101,7 +101,6 @@ public class ServerProtectorManager extends JavaPlugin {
         pluginConfig.setupExcluded(config);
         FileConfiguration configFile = pluginConfig.getFile(path, "config.yml");
         pluginConfig.loadAdditionalChecks(config, configFile);
-        pluginConfig.loadBossbarSettings(config, configFile);
         pluginConfig.loadMsgMessages(messageFile);
         pluginConfig.loadUspMessages(messageFile);
         pluginConfig.loadTitleMessages(messageFile);
@@ -145,63 +144,54 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public void setupLogger(FileConfiguration config) {
         File dataFolder = getDataFolder();
-        if (!dataFolder.exists() && !dataFolder.mkdirs()) {
+        if (!dataFolder.exists() && !dataFolder.mkdirs())
             throw new RuntimeException("Unable to create data folder");
-        }
         String logFilePath = dataFolder.getPath();
         logFile = new File(logFilePath, "log.yml");
     }
 
     public void checkFail(String playerName, List<String> command) {
-        if (command.isEmpty()) {
-            return;
-        }
+        if (command.isEmpty()) return;
         runner.run(
                 () -> {
                     for (String c : command) {
                         server.dispatchCommand(
                                 server.getConsoleSender(), c.replace("%player%", playerName));
-                        Date date = new Date();
                         logToFile(
                                 messageFile
                                         .getString("log-format.command", "ERROR")
                                         .replace("%player%", playerName)
                                         .replace("%cmd%", c)
-                                        .replace("%date%", DATE_FORMAT.format(date)));
+                                        .replace("%date%", DATE_FORMAT.format(new Date())));
                     }
                 });
     }
 
     public void giveEffect(Player player) {
         runner.runPlayer(
-                () -> {
-                    PotionEffectType types = PotionEffectType.getByName("BLINDNESS");
-                    player.addPotionEffect(new PotionEffect(types, 99999, 2));
-                },
+                () ->
+                        player.addPotionEffect(
+                                new PotionEffect(
+                                        PotionEffectType.getByName("BLINDNESS"), 99999, 2)),
                 player);
     }
 
     public void applyHide(Player p) {
-        if (pluginConfig.blocking_settings_hide_on_entering) {
+        if (pluginConfig.blocking_settings_hide_on_entering)
             runner.runPlayer(
                     () -> {
-                        for (Player onlinePlayer : server.getOnlinePlayers()) {
-                            if (!onlinePlayer.equals(p)) {
-                                onlinePlayer.hidePlayer(this, p);
-                            }
-                        }
+                        for (Player onlinePlayer : server.getOnlinePlayers())
+                            if (!onlinePlayer.equals(p)) onlinePlayer.hidePlayer(this, p);
                     },
                     p);
-        }
-        if (pluginConfig.blocking_settings_hide_other_on_entering) {
+
+        if (pluginConfig.blocking_settings_hide_other_on_entering)
             runner.runPlayer(
                     () -> {
-                        for (Player onlinePlayer : server.getOnlinePlayers()) {
+                        for (Player onlinePlayer : server.getOnlinePlayers())
                             p.hidePlayer(this, onlinePlayer);
-                        }
                     },
                     p);
-        }
     }
 
     public void logEnableDisable(String msg, Date date) {
@@ -209,17 +199,9 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public CaptureReason checkPermissions(Player p) {
-        if (p.isOp()) {
-            return new CaptureReason(null);
-        }
-        if (p.hasPermission("serverprotector.protect")) {
+        if (p.hasPermission("serverprotector.protect"))
             return new CaptureReason("serverprotector.protect");
-        }
-        for (String s : pluginConfig.perms) {
-            if (p.hasPermission(s)) {
-                return new CaptureReason(s);
-            }
-        }
+        for (String s : pluginConfig.perms) if (p.hasPermission(s)) return new CaptureReason(s);
         return null;
     }
 
@@ -233,11 +215,9 @@ public class ServerProtectorManager extends JavaPlugin {
 
     public void sendAlert(Player p, String msg) {
         msg = msg.replace("%player%", p.getName());
-        for (Player ps : server.getOnlinePlayers()) {
-            if (ps.hasPermission("serverprotector.admin")) {
-                ps.sendMessage(msg);
-            }
-        }
+        for (Player ps : server.getOnlinePlayers())
+            if (ps.hasPermission("serverprotector.admin")) ps.sendMessage(msg);
+
         server.getConsoleSender().sendMessage(msg.replace("%player%", p.getName()));
     }
 

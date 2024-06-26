@@ -1,5 +1,4 @@
 blocking-settings:
-  block-inventory-open: false
   hide-on-entering: true
   hide-other-on-entering: true
 
