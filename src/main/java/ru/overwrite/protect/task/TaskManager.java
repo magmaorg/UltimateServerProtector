@@ -102,21 +102,6 @@ public final class TaskManager {
                 40L);
     }
 
-    public void startOpCheck(FileConfiguration config) {
-        runner.runPeriodicalAsync(
-                () -> {
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (p.isOp() && !this.pluginConfig.op_whitelist.contains(p.getName())) {
-                            plugin.checkFail(
-                                    p.getName(),
-                                    config.getStringList("commands.not-in-opwhitelist"));
-                        }
-                    }
-                },
-                0L,
-                20L);
-    }
-
     public void startPermsCheck(FileConfiguration config) {
         runner.runPeriodicalAsync(
                 () -> {

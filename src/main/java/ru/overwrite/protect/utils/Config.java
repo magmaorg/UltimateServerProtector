@@ -31,11 +31,7 @@ public class Config {
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> op_whitelist,
-            excluded_admin_pass,
-            excluded_op_whitelist,
-            excluded_ip_whitelist,
-            excluded_blacklisted_perms;
+    public List<String> excluded_admin_pass, excluded_ip_whitelist, excluded_blacklisted_perms;
     public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_consoleonly,
             uspmsg_reloaded,
@@ -49,8 +45,6 @@ public class Config {
             uspmsg_playerremoved,
             uspmsg_ipadded,
             uspmsg_setpassusage,
-            uspmsg_addopusage,
-            uspmsg_remopusage,
             uspmsg_ipremoved,
             uspmsg_remipusage,
             uspmsg_addipusage,
@@ -61,8 +55,6 @@ public class Config {
             uspmsg_usage_reboot,
             uspmsg_usage_setpass,
             uspmsg_usage_rempass,
-            uspmsg_usage_addop,
-            uspmsg_usage_remop,
             uspmsg_usage_addip,
             uspmsg_usage_remip,
             uspmsg_otherdisabled,
@@ -91,7 +83,6 @@ public class Config {
             punish_settings_enable_attempts,
             punish_settings_enable_time,
             punish_settings_enable_rejoin,
-            secure_settings_enable_op_whitelist,
             secure_settings_enable_notadmin_punish,
             secure_settings_enable_permission_blacklist,
             secure_settings_enable_ip_whitelist,
@@ -214,7 +205,6 @@ public class Config {
         if (!configFile.contains("secure-settings")) {
             logger.warn("Configuration section secure-settings not found!");
             configFile.createSection("secure-settings");
-            configFile.set("secure-settings.enable-op-whitelist", false);
             configFile.set("secure-settings.enable-notadmin-punish", false);
             configFile.set("secure-settings.enable-permission-blacklist", false);
             configFile.set("secure-settings.enable-ip-whitelist", false);
@@ -224,8 +214,6 @@ public class Config {
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section secure-settings");
         }
-        secure_settings_enable_op_whitelist =
-                secureSettings.getBoolean("enable-op-whitelist", false);
         secure_settings_enable_notadmin_punish =
                 secureSettings.getBoolean("enable-notadmin-punish", false);
         secure_settings_enable_permission_blacklist =
@@ -250,9 +238,6 @@ public class Config {
 
     public void loadLists(FileConfiguration config) {
         ConfigurationSection secureSettings = config.getConfigurationSection("secure-settings");
-        if (secureSettings.getBoolean("enable-op-whitelist")) {
-            op_whitelist = new ArrayList<>(config.getStringList("op-whitelist"));
-        }
         if (secureSettings.getBoolean("enable-permission-blacklist")) {
             blacklisted_perms = new HashSet<>(config.getStringList("blacklisted-perms"));
         }
@@ -272,7 +257,6 @@ public class Config {
             ConfigurationSection excludedPlayers =
                     config.getConfigurationSection("excluded-players");
             excluded_admin_pass = new ArrayList<>(excludedPlayers.getStringList("admin-pass"));
-            excluded_op_whitelist = new ArrayList<>(excludedPlayers.getStringList("op-whitelist"));
             excluded_ip_whitelist = new ArrayList<>(excludedPlayers.getStringList("ip-whitelist"));
             excluded_blacklisted_perms =
                     new ArrayList<>(excludedPlayers.getStringList("blacklisted-perms"));
@@ -293,10 +277,8 @@ public class Config {
         uspmsg_playerremoved = getMessage(uspmsg, "playerremoved");
         uspmsg_ipadded = getMessage(uspmsg, "ipadded");
         uspmsg_setpassusage = getMessage(uspmsg, "setpassusage");
-        uspmsg_addopusage = getMessage(uspmsg, "addopusage");
         uspmsg_addipusage = getMessage(uspmsg, "addipusage");
         uspmsg_rempassusage = getMessage(uspmsg, "rempassusage");
-        uspmsg_remopusage = getMessage(uspmsg, "remopusage");
         uspmsg_ipremoved = getMessage(uspmsg, "ipremoved");
         uspmsg_remipusage = getMessage(uspmsg, "remipusage");
         uspmsg_usage = getMessage(uspmsg, "usage");
@@ -305,8 +287,6 @@ public class Config {
         uspmsg_usage_reboot = getMessage(uspmsg, "usage-reboot");
         uspmsg_usage_setpass = getMessage(uspmsg, "usage-setpass");
         uspmsg_usage_rempass = getMessage(uspmsg, "usage-rempass");
-        uspmsg_usage_addop = getMessage(uspmsg, "usage-addop");
-        uspmsg_usage_remop = getMessage(uspmsg, "usage-remop");
         uspmsg_usage_addip = getMessage(uspmsg, "usage-addip");
         uspmsg_usage_remip = getMessage(uspmsg, "usage-remip");
         uspmsg_otherdisabled = getMessage(uspmsg, "otherdisabled");

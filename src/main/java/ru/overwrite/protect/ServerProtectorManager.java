@@ -162,9 +162,6 @@ public class ServerProtectorManager extends JavaPlugin {
         if (pluginConfig.secure_settings_enable_notadmin_punish) {
             taskManager.startAdminCheck(config);
         }
-        if (pluginConfig.secure_settings_enable_op_whitelist) {
-            taskManager.startOpCheck(config);
-        }
         if (pluginConfig.secure_settings_enable_permission_blacklist) {
             taskManager.startPermsCheck(config);
         }

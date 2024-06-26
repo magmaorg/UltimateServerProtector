@@ -21,10 +21,8 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         registerSubCommand(new ReloadSubcommand(plugin));
         registerSubCommand(new RebootSubcommand(plugin));
         registerSubCommand(new SetpassSubcommand(plugin));
-        registerSubCommand(new AddopSubcommand(plugin));
         registerSubCommand(new AddipSubcommand(plugin));
         registerSubCommand(new RempassSubcommand(plugin));
-        registerSubCommand(new RemopSubcommand(plugin));
         registerSubCommand(new RemipSubcommand(plugin));
     }
 
@@ -82,8 +80,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         }
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_setpass, label, "serverprotector.setpass");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_rempass, label, "serverprotector.rempass");
-        sendCmdMessage(sender, pluginConfig.uspmsg_usage_addop, label, "serverprotector.addop");
-        sendCmdMessage(sender, pluginConfig.uspmsg_usage_remop, label, "serverprotector.remop");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_addip, label, "serverprotector.addip");
         sendCmdMessage(sender, pluginConfig.uspmsg_usage_remip, label, "serverprotector.remip");
     }
@@ -109,8 +105,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
             if (pluginConfig.main_settings_enable_admin_commands) {
                 completions.add("setpass");
                 completions.add("rempass");
-                completions.add("addop");
-                completions.add("remop");
                 completions.add("addip");
                 completions.add("remip");
             }
