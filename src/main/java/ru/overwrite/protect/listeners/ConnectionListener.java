@@ -49,7 +49,7 @@ public class ConnectionListener implements Listener {
                         String playerName = p.getName();
                         String ip = e.getAddress().getHostAddress();
                         if (!api.ips.contains(playerName + ip)) {
-                            if (!plugin.isExcluded(p, pluginConfig.excluded_admin_pass)) {
+                            if (!plugin.isExcluded(p, pluginConfig.excluded_players)) {
                                 ServerProtectorCaptureEvent captureEvent =
                                         new ServerProtectorCaptureEvent(p, ip, captureReason);
                                 captureEvent.callEvent();

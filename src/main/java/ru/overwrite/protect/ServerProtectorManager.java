@@ -232,7 +232,7 @@ public class ServerProtectorManager extends JavaPlugin {
     }
 
     public boolean isExcluded(Player p, List<String> list) {
-        return pluginConfig.secure_settings_enable_excluded_players && list.contains(p.getName());
+        return list.contains(p.getName());
     }
 
     public boolean isAdmin(String nick) {

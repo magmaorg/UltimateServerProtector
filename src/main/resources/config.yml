@@ -40,8 +40,6 @@ secure-settings:
   shutdown-on-disable: true
   # Выключать ли сервер только если включены плугмано-подобные плагины
   shutdown-on-disable-only-if-plugman: true
-  # Разрешить ли ряду игроков входить в игру без админ пароля (отключено по умолчанию и небезопасно)
-  enable-excluded-players: false
   # Вызывать ли ServerProtectorPasswordEnterEvent при вводе пароля игроком? (Отключено по умолчанию в целях безопасности)
   call-event-on-password-enter: false
 
@@ -99,7 +97,5 @@ permissions:
 
 # Какие игроки будут исключены из проверок (каждой проверке - свой тип)
 excluded-players:
-  # Игроки, которым не нужно будет вводить админ-пароль
-  admin-pass:
-    - test99999
-    - test123123
+  - test99999
+  - test123123

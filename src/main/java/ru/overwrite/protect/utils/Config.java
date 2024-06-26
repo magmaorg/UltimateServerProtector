@@ -29,7 +29,7 @@ public class Config {
 
     public Map<String, String> per_player_passwords;
 
-    public List<String> excluded_admin_pass;
+    public List<String> excluded_players;
     public String[] titles_message, titles_incorrect, titles_correct;
     public String uspmsg_reloaded,
             uspmsg_rebooted,
@@ -70,7 +70,6 @@ public class Config {
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
             secure_settings_enable_notadmin_punish,
-            secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter;
 
     public void setupPasswords(FileConfiguration dataFile) {
@@ -137,15 +136,12 @@ public class Config {
             logger.warn("Configuration section secure-settings not found!");
             configFile.createSection("secure-settings");
             configFile.set("secure-settings.enable-notadmin-punish", false);
-            configFile.set("secure-settings.enable-excluded-players", false);
             configFile.set("secure-settings.call-event-on-password-enter", false);
             save(plugin.path, configFile, "config.yml");
             logger.info("Created section secure-settings");
         }
         secure_settings_enable_notadmin_punish =
                 secureSettings.getBoolean("enable-notadmin-punish", false);
-        secure_settings_enable_excluded_players =
-                secureSettings.getBoolean("enable-excluded-players", false);
         secure_settings_call_event_on_password_enter =
                 secureSettings.getBoolean("call-event-on-password-enter", false);
     }
@@ -160,11 +156,7 @@ public class Config {
     }
 
     public void setupExcluded(FileConfiguration config) {
-        if (config.getBoolean("secure-settings.enable-excluded-players")) {
-            ConfigurationSection excludedPlayers =
-                    config.getConfigurationSection("excluded-players");
-            excluded_admin_pass = new ArrayList<>(excludedPlayers.getStringList("admin-pass"));
-        }
+        excluded_players = new ArrayList<>(config.getStringList("excluded-players"));
     }
 
     public void loadUspMessages(FileConfiguration message) {
