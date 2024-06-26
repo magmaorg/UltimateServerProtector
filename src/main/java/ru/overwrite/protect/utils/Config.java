@@ -56,8 +56,7 @@ public class Config {
             broadcasts_passed,
             broadcasts_joined,
             broadcasts_captured,
-            bossbar_message,
-            main_settings_prefix;
+            bossbar_message;
     public boolean blocking_settings_block_item_drop,
             blocking_settings_block_item_pickup,
             blocking_settings_block_tab_complete,
@@ -78,18 +77,6 @@ public class Config {
         if (shouldSave) {
             save(plugin.path, dataFile, "data.yml");
         }
-    }
-
-    public void loadMainSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection mainSettings = config.getConfigurationSection("main-settings");
-        if (!configFile.contains("main-settings")) {
-            logger.warn("Configuration section main-settings not found!");
-            configFile.createSection("main-settings");
-            configFile.set("main-settings.prefix", "[UltimateServerProtector]");
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section main-settings");
-        }
-        main_settings_prefix = mainSettings.getString("prefix", "[UltimateServerProtector]");
     }
 
     public void loadAdditionalChecks(FileConfiguration config, FileConfiguration configFile) {
@@ -187,8 +174,7 @@ public class Config {
         Component component =
                 MiniMessage.miniMessage()
                         .deserialize(
-                                section.getString(key, "&4&lERROR&r: " + key + " does not exist!")
-                                        .replace("%prefix%", main_settings_prefix));
+                                section.getString(key, "&4&lERROR&r: " + key + " does not exist!"));
         return LegacyComponentSerializer.legacySection().serialize(component);
     }
 
