@@ -36,13 +36,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
         }
         AbstractSubCommand subCommand = subCommands.get(args[0].toLowerCase());
         if (subCommand != null) {
-            if (subCommand.isAdminCommand()) {
-                if (pluginConfig.secure_settings_only_console_usp
-                        && !(sender instanceof ConsoleCommandSender)) {
-                    sender.sendMessage(pluginConfig.uspmsg_consoleonly);
-                    return false;
-                }
-            }
             if (!sender.hasPermission(subCommand.getPermission())) {
                 sendHelp(sender, label);
                 return false;
@@ -81,10 +74,6 @@ public class UspCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(
             CommandSender sender, Command command, String alias, String[] args) {
-        if (pluginConfig.secure_settings_only_console_usp
-                && !(sender instanceof ConsoleCommandSender)) {
-            return Collections.emptyList();
-        }
         List<String> completions = new ArrayList<>();
         if (args.length == 1) {
             completions.add("logout");

@@ -31,8 +31,7 @@ public class Config {
 
     public List<String> excluded_admin_pass;
     public String[] titles_message, titles_incorrect, titles_correct;
-    public String uspmsg_consoleonly,
-            uspmsg_reloaded,
+    public String uspmsg_reloaded,
             uspmsg_rebooted,
             uspmsg_playernotfound,
             uspmsg_alreadyinconfig,
@@ -71,7 +70,6 @@ public class Config {
             blocking_settings_hide_other_on_entering,
             blocking_settings_allow_orientation_change,
             secure_settings_enable_notadmin_punish,
-            secure_settings_only_console_usp,
             secure_settings_enable_excluded_players,
             secure_settings_call_event_on_password_enter;
 
@@ -139,7 +137,6 @@ public class Config {
             logger.warn("Configuration section secure-settings not found!");
             configFile.createSection("secure-settings");
             configFile.set("secure-settings.enable-notadmin-punish", false);
-            configFile.set("secure-settings.only-console-usp", false);
             configFile.set("secure-settings.enable-excluded-players", false);
             configFile.set("secure-settings.call-event-on-password-enter", false);
             save(plugin.path, configFile, "config.yml");
@@ -147,7 +144,6 @@ public class Config {
         }
         secure_settings_enable_notadmin_punish =
                 secureSettings.getBoolean("enable-notadmin-punish", false);
-        secure_settings_only_console_usp = secureSettings.getBoolean("only-console-usp", false);
         secure_settings_enable_excluded_players =
                 secureSettings.getBoolean("enable-excluded-players", false);
         secure_settings_call_event_on_password_enter =
@@ -173,7 +169,6 @@ public class Config {
 
     public void loadUspMessages(FileConfiguration message) {
         ConfigurationSection uspmsg = message.getConfigurationSection("uspmsg");
-        uspmsg_consoleonly = getMessage(uspmsg, "consoleonly");
         uspmsg_playeronly = getMessage(uspmsg, "playeronly");
         uspmsg_logout = getMessage(uspmsg, "logout");
         uspmsg_reloaded = getMessage(uspmsg, "reloaded");
