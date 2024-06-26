@@ -138,7 +138,6 @@ public class ServerProtectorManager extends JavaPlugin {
         FileConfiguration configFile = pluginConfig.getFile(path, "config.yml");
         pluginConfig.loadMainSettings(config, configFile);
         pluginConfig.loadSecureSettings(config, configFile);
-        pluginConfig.loadGeyserSettings(config, configFile);
         pluginConfig.loadAdditionalChecks(config, configFile);
         pluginConfig.loadPunishSettings(config, configFile);
         pluginConfig.loadSessionSettings(config, configFile);

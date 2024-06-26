@@ -25,7 +25,7 @@ public class Config {
         this.logger = plugin.getPluginLogger();
     }
 
-    public Set<String> perms, blacklisted_perms, geyser_names;
+    public Set<String> perms, blacklisted_perms;
 
     public Map<String, List<String>> ip_whitelist;
 
@@ -44,8 +44,7 @@ public class Config {
             sound_settings_on_capture,
             sound_settings_on_pas_fail,
             sound_settings_on_pas_correct;
-    public String geyser_prefix,
-            uspmsg_consoleonly,
+    public String uspmsg_consoleonly,
             uspmsg_reloaded,
             uspmsg_rebooted,
             uspmsg_playernotfound,
@@ -132,11 +131,7 @@ public class Config {
         ConfigurationSection data = dataFile.getConfigurationSection("data");
         boolean shouldSave = false;
         for (String nick : data.getKeys(false)) {
-            String playerNick = nick;
-            if (geyser_prefix != null && !geyser_prefix.isBlank() && geyser_names.contains(nick)) {
-                playerNick = geyser_prefix + nick;
-            }
-            per_player_passwords.put(playerNick, data.getString(nick + ".pass"));
+            per_player_passwords.put(nick, data.getString(nick + ".pass"));
         }
         if (shouldSave) {
             save(plugin.path, dataFile, plugin.dataFileName);
@@ -158,20 +153,6 @@ public class Config {
         main_settings_enable_admin_commands =
                 mainSettings.getBoolean("enable-admin-commands", false);
         main_settings_check_interval = mainSettings.getLong("check-interval", 40);
-    }
-
-    public void loadGeyserSettings(FileConfiguration config, FileConfiguration configFile) {
-        ConfigurationSection geyserSettings = config.getConfigurationSection("geyser-settings");
-        if (!configFile.contains("geyser-settings")) {
-            logger.warn("Configuration section geyser-settings not found!");
-            configFile.createSection("geyser-settings");
-            configFile.set("geyser-settings.geyser-prefix", ".");
-            configFile.set("geyser-settings.geyser-nicknames", List.of("test99999"));
-            save(plugin.path, configFile, "config.yml");
-            logger.info("Created section geyser-settings");
-        }
-        geyser_prefix = geyserSettings.getString("geyser-prefix", ".");
-        geyser_names = new HashSet<>(geyserSettings.getStringList("geyser-nicknames"));
     }
 
     public void loadAdditionalChecks(FileConfiguration config, FileConfiguration configFile) {
