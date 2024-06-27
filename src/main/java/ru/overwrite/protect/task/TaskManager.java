@@ -102,7 +102,7 @@ public final class TaskManager {
                             plugin.time.put(playerName, 0);
                             BossBar bossbar =
                                     Bukkit.createBossBar(
-                                            "&fСекунд осталось: &c60",
+                                            "§fСекунд осталось: §c60",
                                             BarColor.valueOf("RED"),
                                             BarStyle.valueOf("SEGMENTED_12"));
                             bossbar.addPlayer(p);
@@ -115,7 +115,7 @@ public final class TaskManager {
                                         .bossbars
                                         .get(playerName)
                                         .setTitle(
-                                                "&fСекунд осталось: &c"
+                                                "§fСекунд осталось: §c"
                                                         + Integer.toString(60 - newTime));
                                 double percents = (60 - newTime) / (double) 60;
                                 if (percents > 0) {
